@@ -51,6 +51,10 @@ def t_error(t):
 	print ("Illegal character '%s'" % repr(t.value[0]))
 	t.lexer.skip(1)
 
+def t_COMMENT(t):
+     r'\#.*'
+     pass
+
 lex.lex()
 
 if __name__ == "__main__":

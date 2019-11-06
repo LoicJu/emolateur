@@ -56,7 +56,7 @@ def execute(node):
 
 
 if __name__ == "__main__":
-    from parser import parse
+    from parserEmo import parse
     from threader import thread
     import sys
     prog = open(sys.argv[1]).read()

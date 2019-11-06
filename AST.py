@@ -1,16 +1,16 @@
 # coding: latin-1
 
 ''' Petit module utilitaire pour la construction, la manipulation et la 
-représentation d'arbres syntaxiques abstraits.
+reprï¿½sentation d'arbres syntaxiques abstraits.
 
-Sûrement plein de bugs et autres surprises. À prendre comme un 
+Sï¿½rement plein de bugs et autres surprises. ï¿½ prendre comme un 
 "work in progress"...
-Notamment, l'utilisation de pydot pour représenter un arbre syntaxique cousu
-est une utilisation un peu "limite" de graphviz. Ça marche, mais le layout n'est
+Notamment, l'utilisation de pydot pour reprï¿½senter un arbre syntaxique cousu
+est une utilisation un peu "limite" de graphviz. ï¿½a marche, mais le layout n'est
 pas toujours optimal...
 '''
 
-import pydot
+import pydotplus as pydot
 
 class Node:
     count = 0
@@ -78,10 +78,10 @@ class Node:
                 edge = pydot.Edge(self.ID,c.ID)
                 edge.set_color(color)
                 edge.set_arrowsize('.5')
-                # Les arrêtes correspondant aux coutures ne sont pas prises en compte
-                # pour le layout du graphe. Ceci permet de garder l'arbre dans sa représentation
+                # Les arrï¿½tes correspondant aux coutures ne sont pas prises en compte
+                # pour le layout du graphe. Ceci permet de garder l'arbre dans sa reprï¿½sentation
                 # "standard", mais peut provoquer des surprises pour le trajet parfois un peu
-                # tarabiscoté des coutures...
+                # tarabiscotï¿½ des coutures...
                 # En commantant cette ligne, le layout sera bien meilleur, mais l'arbre nettement
                 # moins reconnaissable.
                 edge.set_constraint('false') 
@@ -130,16 +130,16 @@ class EntryNode(Node):
         Node.__init__(self, None)
     
 def addToClass(cls):
-    ''' Décorateur permettant d'ajouter la fonction décorée en tant que méthode
-    à une classe.
+    ''' Dï¿½corateur permettant d'ajouter la fonction dï¿½corï¿½e en tant que mï¿½thode
+    ï¿½ une classe.
     
-    Permet d'implémenter une forme élémentaire de programmation orientée
-    aspects en regroupant les méthodes de différentes classes implémentant
-    une même fonctionnalité en un seul endroit.
+    Permet d'implï¿½menter une forme ï¿½lï¿½mentaire de programmation orientï¿½e
+    aspects en regroupant les mï¿½thodes de diffï¿½rentes classes implï¿½mentant
+    une mï¿½me fonctionnalitï¿½ en un seul endroit.
     
-    Attention, après utilisation de ce décorateur, la fonction décorée reste dans
-    le namespace courant. Si cela dérange, on peut utiliser del pour la détruire.
-    Je ne sais pas s'il existe un moyen d'éviter ce phénomène.
+    Attention, aprï¿½s utilisation de ce dï¿½corateur, la fonction dï¿½corï¿½e reste dans
+    le namespace courant. Si cela dï¿½range, on peut utiliser del pour la dï¿½truire.
+    Je ne sais pas s'il existe un moyen d'ï¿½viter ce phï¿½nomï¿½ne.
     '''
     def decorator(func):
         setattr(cls,func.__name__,func)
