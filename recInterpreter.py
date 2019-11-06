@@ -14,7 +14,7 @@ vars ={}
 def execute(self):
     for c in self.children:
         c.execute()
-    
+
 @addToClass(AST.TokenNode)
 def execute(self):
     if isinstance(self.tok, str):
@@ -38,16 +38,16 @@ def execute(self):
 @addToClass(AST.PrintNode)
 def execute(self):
     print (self.children[0].execute())
-    
+
 @addToClass(AST.WhileNode)
 def execute(self):
     while self.children[0].execute():
         self.children[1].execute()
 
 if __name__ == "__main__":
-    from parser5 import parse
+    from parser import parse
     import sys
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
-    
+
     ast.execute()

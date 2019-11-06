@@ -1,3 +1,7 @@
+'''
+Lex
+'''
+
 import ply.lex as lex
 
 reserved_words = (
@@ -17,7 +21,7 @@ literals = '();={}'
 def t_ADD_OP(t):
 	r'[+-]'
 	return t
-	
+
 def t_MUL_OP(t):
 	r'[*/]'
 	return t
@@ -25,7 +29,7 @@ def t_MUL_OP(t):
 def t_NUMBER(t):
 	r'\d+(\.\d+)?'
 	try:
-		t.value = float(t.value)    
+		t.value = float(t.value)
 	except ValueError:
 		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
 		t.value = 0
@@ -36,7 +40,7 @@ def t_IDENTIFIER(t):
 	if t.value in reserved_words:
 		t.type = t.value.upper()
 	return t
-	
+
 def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)

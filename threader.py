@@ -23,7 +23,7 @@ def thread(tree):
     return entry
 
 if __name__ == "__main__":
-    from parser5 import parse
+    from parser import parse
     import sys, os
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
@@ -31,7 +31,7 @@ if __name__ == "__main__":
 
     graph = ast.makegraphicaltree()
     entry.threadTree(graph)
-    
+
     name = os.path.splitext(sys.argv[1])[0]+'-ast-threaded.pdf'
-    graph.write_pdf(name) 
-    print ("wrote threaded ast to", name)    
+    graph.write_pdf(name)
+    print ("wrote threaded ast to", name)

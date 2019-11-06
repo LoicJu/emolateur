@@ -1,3 +1,7 @@
+'''
+Interprets and executes the code from the given file.
+'''
+
 import AST
 
 operations = {
@@ -26,7 +30,7 @@ def execute(node):
             stack.append(node.tok)
         elif node.__class__ == AST.OpNode:
             arg2 = valueOfToken(stack.pop())
-            if node.nbargs == 2: 
+            if node.nbargs == 2:
                 arg1 = valueOfToken(stack.pop())
             else:
                 arg1 = 0
@@ -49,10 +53,10 @@ def execute(node):
             node = node.next[0]
         else:
             node = None
-            
+
 
 if __name__ == "__main__":
-    from parser5 import parse
+    from parser import parse
     from threader import thread
     import sys
     prog = open(sys.argv[1]).read()
@@ -60,4 +64,3 @@ if __name__ == "__main__":
     entry = thread(ast)
 
     execute(entry)
-    
