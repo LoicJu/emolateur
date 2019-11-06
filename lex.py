@@ -6,7 +6,9 @@ import ply.lex as lex
 
 reserved_words = (
 	'while',
-	'print'
+	'print',
+	'for',
+	'in',
 )
 
 tokens = (
@@ -16,7 +18,7 @@ tokens = (
 	'IDENTIFIER',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = '();={},'
 
 def t_ADD_OP(t):
 	r'[+-]'
