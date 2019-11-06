@@ -55,6 +55,7 @@ def t_COMMENT(t):
      r'\#.*'
      pass
 
+
 lex.lex()
 
 if __name__ == "__main__":
