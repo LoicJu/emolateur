@@ -5,6 +5,9 @@
 # ply
 generated/
 
+# ast
+*-ast.pdf
+
 ### macOS ###
 # General
 .DS_Store
