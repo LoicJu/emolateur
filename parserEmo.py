@@ -44,7 +44,8 @@ def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
 
-def p_expression_newline(p):
+# define the newline
+def p_newline(p):
     ''' expression : NEWLINE'''
     p[0] = AST.NewLineNode(p[1])    
 

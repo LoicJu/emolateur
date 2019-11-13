@@ -38,7 +38,7 @@ _lr_productions = [
   ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',39),
   ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',40),
   ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',44),
-  ('expression -> NEWLINE','expression',1,'p_expression_newline','parserEmo.py',48),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',52),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',56),
+  ('expression -> NEWLINE','expression',1,'p_newline','parserEmo.py',49),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',53),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',57),
 ]

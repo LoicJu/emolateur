@@ -43,15 +43,12 @@ def t_IDENTIFIER(t):
 		t.type = t.value.upper()
 	return t
 
+# this define a new line
 def t_NEWLINE(t):
 	r'\n+'
-	t.lexer.lineno += len(t.value)
+	# line below not necessary, need to understand what it does and what's its use, maybe useless
+	#t.lexer.lineno += len(t.value)
 	return t	
-'''
-def t_newline(t):
-	r'\n+'
-	t.lexer.lineno += len(t.value)
-'''
 
 t_ignore  = ' \t'
 
