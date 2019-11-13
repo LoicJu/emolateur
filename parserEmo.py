@@ -30,6 +30,21 @@ def p_structure(p):
     ''' structure : WHILE expression '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
 
+# identifiant et nombre sont peut-etre provisoires
+def p_for(p):
+    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
+    p[0] = AST.ForNode([p[2],p[4],p[6],p[8],p[10]])
+
+# PEUT-ETRE PROVISOIRE
+def p_nombre(p):
+    ''' nombre : NUMBER '''
+    p[0] = AST.TokenNode(p[1])
+
+# PEUT-ETRE PROVISOIRE
+def p_identifiant(p):
+    ''' identifiant : IDENTIFIER '''
+    p[0] = AST.TokenNode(p[1])
+
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
             | expression MUL_OP expression'''
@@ -84,11 +99,13 @@ if __name__ == "__main__":
     if result:
         print (result)
 
+        '''
         import os
         os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0]+'-ast.pdf'
         graph.write_pdf(name)
         print ("wrote ast to", name)
+        '''
     else:
         print ("Parsing returned no result!")
