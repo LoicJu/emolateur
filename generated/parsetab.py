@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP IDENTIFIER MUL_OP NUMBER PRINT WHILE programme : statement  programme : statement ';' programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : expression ADD_OP expression\n            | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP IDENTIFIER MUL_OP NEWLINE NUMBER PRINT WHILE programme : statement  programme : statement NEWLINE programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}' expression : expression ADD_OP expression\n            | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : NEWLINE expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'PRINT':([0,8,22,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,10,13,14,17,18,22,],[6,12,12,6,12,12,12,12,12,6,]),'WHILE':([0,8,22,],[7,7,7,]),'$end':([1,2,3,4,9,11,12,16,19,21,23,24,25,27,],[0,-1,-3,-4,-5,-9,-10,-2,-12,-13,-7,-8,-11,-6,]),'}':([2,3,4,9,11,12,16,19,21,23,24,25,26,27,],[-1,-3,-4,-5,-9,-10,-2,-12,-13,-7,-8,-11,27,-6,]),';':([2,3,4,9,11,12,19,21,23,24,25,27,],[8,-3,-4,-5,-9,-10,-12,-13,-7,-8,-11,-6,]),'NUMBER':([5,7,10,13,14,17,18,],[11,11,11,11,11,11,11,]),'(':([5,7,10,13,14,17,18,],[13,13,13,13,13,13,13,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,17,18,19,20,21,23,24,25,],[10,10,17,10,-9,-10,10,10,17,10,10,-12,17,17,-7,-8,-11,]),'=':([6,],[14,]),'MUL_OP':([9,11,12,15,19,20,21,23,24,25,],[18,-9,-10,18,-12,18,18,18,-8,-11,]),'{':([11,12,15,19,23,24,25,],[-9,-10,22,-12,-7,-8,-11,]),')':([11,12,19,20,23,24,25,],[-9,-10,-12,25,-7,-8,-11,]),}
+_lr_action_items = {'PRINT':([0,8,23,],[5,5,5,]),'IDENTIFIER':([0,5,7,8,10,13,15,18,19,23,],[6,12,12,6,12,12,12,12,12,6,]),'WHILE':([0,8,23,],[7,7,7,]),'$end':([1,2,3,4,9,11,12,14,17,20,22,24,25,26,28,],[0,-1,-3,-4,-5,-9,-10,-12,-2,-13,-14,-7,-8,-11,-6,]),'}':([2,3,4,9,11,12,14,17,20,22,24,25,26,27,28,],[-1,-3,-4,-5,-9,-10,-12,-2,-13,-14,-7,-8,-11,28,-6,]),'NEWLINE':([2,3,4,5,7,9,10,11,12,13,14,15,18,19,20,22,24,25,26,28,],[8,-3,-4,14,14,-5,14,-9,-10,14,-12,14,14,14,-13,-14,-7,-8,-11,-6,]),'NUMBER':([5,7,10,13,15,18,19,],[11,11,11,11,11,11,11,]),'(':([5,7,10,13,15,18,19,],[13,13,13,13,13,13,13,]),'ADD_OP':([5,7,9,10,11,12,13,14,15,16,18,19,20,21,22,24,25,26,],[10,10,18,10,-9,-10,10,-12,10,18,10,10,-13,18,18,-7,-8,-11,]),'=':([6,],[15,]),'MUL_OP':([9,11,12,14,16,20,21,22,24,25,26,],[19,-9,-10,-12,19,-13,19,19,19,-8,-11,]),'{':([11,12,14,16,20,24,25,26,],[-9,-10,-12,23,-13,-7,-8,-11,]),')':([11,12,14,20,21,24,25,26,],[-9,-10,-12,-13,26,-7,-8,-11,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,8,22,],[1,16,26,]),'statement':([0,8,22,],[2,2,2,]),'assignation':([0,8,22,],[3,3,3,]),'structure':([0,8,22,],[4,4,4,]),'expression':([5,7,10,13,14,17,18,],[9,15,19,20,21,23,24,]),}
+_lr_goto_items = {'programme':([0,8,23,],[1,17,27,]),'statement':([0,8,23,],[2,2,2,]),'assignation':([0,8,23,],[3,3,3,]),'structure':([0,8,23,],[4,4,4,]),'expression':([5,7,10,13,15,18,19,],[9,16,20,21,22,24,25,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,7 +28,7 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
   ('programme -> statement','programme',1,'p_programme_statement','parserEmo.py',13),
-  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parserEmo.py',17),
+  ('programme -> statement NEWLINE programme','programme',3,'p_programme_recursive','parserEmo.py',17),
   ('statement -> assignation','statement',1,'p_statement','parserEmo.py',21),
   ('statement -> structure','statement',1,'p_statement','parserEmo.py',22),
   ('statement -> PRINT expression','statement',2,'p_statement_print','parserEmo.py',26),
@@ -38,6 +38,7 @@ _lr_productions = [
   ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',39),
   ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',40),
   ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',44),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',48),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',52),
+  ('expression -> NEWLINE','expression',1,'p_expression_newline','parserEmo.py',48),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',52),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',56),
 ]

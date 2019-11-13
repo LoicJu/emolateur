@@ -123,7 +123,10 @@ class PrintNode(Node):
     
 class WhileNode(Node):
     type = 'while'
-    
+
+class NewLineNode(Node):
+    type = 'newline'
+
 class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):

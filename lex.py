@@ -14,9 +14,11 @@ tokens = (
 	'ADD_OP',
 	'MUL_OP',
 	'IDENTIFIER',
+	'NEWLINE',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = ['(',')','=','{','}',';']
+#literals = '()={}'
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -41,9 +43,15 @@ def t_IDENTIFIER(t):
 		t.type = t.value.upper()
 	return t
 
+def t_NEWLINE(t):
+	r'\n+'
+	t.lexer.lineno += len(t.value)
+	return t	
+'''
 def t_newline(t):
 	r'\n+'
 	t.lexer.lineno += len(t.value)
+'''
 
 t_ignore  = ' \t'
 
@@ -54,6 +62,10 @@ def t_error(t):
 def t_COMMENT(t):
      r'\#.*'
      pass
+
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
 
 
 lex.lex()

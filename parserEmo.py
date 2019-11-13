@@ -14,7 +14,7 @@ def p_programme_statement(p):
     p[0] = AST.ProgramNode(p[1])
 
 def p_programme_recursive(p):
-    ''' programme : statement ';' programme '''
+    ''' programme : statement NEWLINE programme '''
     p[0] = AST.ProgramNode([p[1]]+p[3].children)
 
 def p_statement(p):
@@ -43,6 +43,10 @@ def p_expression_num_or_var(p):
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
     p[0] = p[2]
+
+def p_expression_newline(p):
+    ''' expression : NEWLINE'''
+    p[0] = AST.NewLineNode(p[1])    
 
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
