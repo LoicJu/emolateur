@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP FOR IDENTIFIER IN MUL_OP NEWLINE NUMBER PRINT WHILE programme : statement \n        | statement NEWLINE\n        | NEWLINE statement programme : statement NEWLINE programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}'  nombre : NUMBER  identifiant : IDENTIFIER expression : expression ADD_OP expression\n            | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : NEWLINE expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP FOR IDENTIFIER IN MUL_OP NEWLINE NUMBER PRINT WHILE programme : statement \n        | statement line  programme : statement line programme  programme : line programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}'  nombre : NUMBER  identifiant : IDENTIFIER  line : NEWLINE expression : expression ADD_OP expression\n            | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'NEWLINE':([0,2,4,5,6,8,10,12,13,14,15,16,17,18,23,24,25,27,28,30,31,32,36,41,43,],[3,10,-5,-6,17,17,3,-7,17,-14,-15,17,-17,17,17,17,-18,-19,3,-12,-13,-16,-8,3,-9,]),'PRINT':([0,3,10,28,41,],[6,6,6,6,6,]),'IDENTIFIER':([0,3,6,8,9,10,13,16,18,23,24,28,41,],[7,7,15,15,21,7,15,15,15,15,15,7,7,]),'WHILE':([0,3,10,28,41,],[8,8,8,8,8,]),'FOR':([0,3,10,28,41,],[9,9,9,9,9,]),'$end':([1,2,4,5,10,11,12,14,15,17,22,25,27,30,31,32,36,43,],[0,-1,-5,-6,-2,-3,-7,-14,-15,-17,-4,-18,-19,-12,-13,-16,-8,-9,]),'}':([2,4,5,10,11,12,14,15,17,22,25,27,30,31,32,33,36,42,43,],[-1,-5,-6,-2,-3,-7,-14,-15,-17,-4,-18,-19,-12,-13,-16,36,-8,43,-9,]),'NUMBER':([6,8,13,16,18,23,24,29,37,39,],[14,14,14,14,14,14,14,35,35,35,]),'(':([6,8,13,16,18,23,24,],[16,16,16,16,16,16,16,]),'ADD_OP':([6,8,12,13,14,15,16,17,18,19,23,24,25,26,27,30,31,32,],[13,13,23,13,-14,-15,13,-17,13,23,13,13,-18,23,23,-12,-13,-16,]),'=':([7,],[18,]),'MUL_OP':([12,14,15,17,19,25,26,27,30,31,32,],[24,-14,-15,-17,24,-18,24,24,24,-13,-16,]),'{':([14,15,17,19,25,30,31,32,35,40,],[-14,-15,-17,28,-18,-12,-13,-16,-10,41,]),')':([14,15,17,25,26,30,31,32,],[-14,-15,-17,-18,32,-12,-13,-16,]),'IN':([20,21,],[29,-11,]),',':([34,35,38,],[37,-10,39,]),}
+_lr_action_items = {'PRINT':([0,3,7,11,28,41,],[6,6,-12,6,6,6,]),'NEWLINE':([0,2,3,4,5,7,11,13,15,16,25,27,28,30,31,32,36,41,43,],[7,7,7,-5,-6,-12,7,-7,-15,-16,-18,-19,7,-13,-14,-17,-8,7,-9,]),'IDENTIFIER':([0,3,6,7,9,10,11,14,17,18,23,24,28,41,],[8,8,16,-12,16,21,8,16,16,16,16,16,8,8,]),'WHILE':([0,3,7,11,28,41,],[9,9,-12,9,9,9,]),'FOR':([0,3,7,11,28,41,],[10,10,-12,10,10,10,]),'$end':([1,2,4,5,7,11,12,13,15,16,22,25,27,30,31,32,36,43,],[0,-1,-5,-6,-12,-2,-4,-7,-15,-16,-3,-18,-19,-13,-14,-17,-8,-9,]),'}':([2,4,5,7,11,12,13,15,16,22,25,27,30,31,32,33,36,42,43,],[-1,-5,-6,-12,-2,-4,-7,-15,-16,-3,-18,-19,-13,-14,-17,36,-8,43,-9,]),'NUMBER':([6,9,14,17,18,23,24,29,37,39,],[15,15,15,15,15,15,15,35,35,35,]),'(':([6,9,14,17,18,23,24,],[17,17,17,17,17,17,17,]),'ADD_OP':([6,9,13,14,15,16,17,18,19,23,24,25,26,27,30,31,32,],[14,14,23,14,-15,-16,14,14,23,14,14,-18,23,23,-13,-14,-17,]),'=':([8,],[18,]),'MUL_OP':([13,15,16,19,25,26,27,30,31,32,],[24,-15,-16,24,-18,24,24,24,-14,-17,]),'{':([15,16,19,25,30,31,32,35,40,],[-15,-16,28,-18,-13,-14,-17,-10,41,]),')':([15,16,25,26,30,31,32,],[-15,-16,-18,32,-13,-14,-17,]),'IN':([20,21,],[29,-11,]),',':([34,35,38,],[37,-10,39,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,10,28,41,],[1,22,33,42,]),'statement':([0,3,10,28,41,],[2,11,2,2,2,]),'assignation':([0,3,10,28,41,],[4,4,4,4,4,]),'structure':([0,3,10,28,41,],[5,5,5,5,5,]),'expression':([6,8,13,16,18,23,24,],[12,19,25,26,27,30,31,]),'identifiant':([9,],[20,]),'nombre':([29,37,39,],[34,38,40,]),}
+_lr_goto_items = {'programme':([0,3,11,28,41,],[1,12,22,33,42,]),'statement':([0,3,11,28,41,],[2,2,2,2,2,]),'line':([0,2,3,11,28,41,],[3,11,3,3,3,3,]),'assignation':([0,3,11,28,41,],[4,4,4,4,4,]),'structure':([0,3,11,28,41,],[5,5,5,5,5,]),'expression':([6,9,14,17,18,23,24,],[13,19,25,26,27,30,31,]),'identifiant':([10,],[20,]),'nombre':([29,37,39,],[34,38,40,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -28,22 +28,22 @@ del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
   ('programme -> statement','programme',1,'p_programme_statement','parserEmo.py',13),
-  ('programme -> statement NEWLINE','programme',2,'p_programme_statement','parserEmo.py',14),
-  ('programme -> NEWLINE statement','programme',2,'p_programme_statement','parserEmo.py',15),
-  ('programme -> statement NEWLINE programme','programme',3,'p_programme_recursive','parserEmo.py',19),
-  ('statement -> assignation','statement',1,'p_statement','parserEmo.py',23),
-  ('statement -> structure','statement',1,'p_statement','parserEmo.py',24),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parserEmo.py',28),
-  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parserEmo.py',32),
-  ('structure -> FOR identifiant IN nombre , nombre , nombre { programme }','structure',11,'p_for','parserEmo.py',37),
-  ('nombre -> NUMBER','nombre',1,'p_nombre','parserEmo.py',42),
-  ('identifiant -> IDENTIFIER','identifiant',1,'p_identifiant','parserEmo.py',47),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parserEmo.py',51),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parserEmo.py',52),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',56),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',57),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',61),
-  ('expression -> NEWLINE','expression',1,'p_newline','parserEmo.py',66),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',70),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',74),
+  ('programme -> statement line','programme',2,'p_programme_statement','parserEmo.py',14),
+  ('programme -> statement line programme','programme',3,'p_programme_recursive','parserEmo.py',18),
+  ('programme -> line programme','programme',2,'p_programme_recursive_line','parserEmo.py',22),
+  ('statement -> assignation','statement',1,'p_statement','parserEmo.py',26),
+  ('statement -> structure','statement',1,'p_statement','parserEmo.py',27),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parserEmo.py',31),
+  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parserEmo.py',35),
+  ('structure -> FOR identifiant IN nombre , nombre , nombre { programme }','structure',11,'p_for','parserEmo.py',40),
+  ('nombre -> NUMBER','nombre',1,'p_nombre','parserEmo.py',45),
+  ('identifiant -> IDENTIFIER','identifiant',1,'p_identifiant','parserEmo.py',50),
+  ('line -> NEWLINE','line',1,'p_newline','parserEmo.py',54),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parserEmo.py',58),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parserEmo.py',59),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',63),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',64),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',68),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',72),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',76),
 ]

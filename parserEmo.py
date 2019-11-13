@@ -11,13 +11,16 @@ vars = {}
 
 def p_programme_statement(p):
     ''' programme : statement 
-        | statement NEWLINE
-        | NEWLINE statement'''
+        | statement line '''
     p[0] = AST.ProgramNode(p[1])
 
 def p_programme_recursive(p):
-    ''' programme : statement NEWLINE programme '''
+    ''' programme : statement line programme '''
     p[0] = AST.ProgramNode([p[1]]+p[3].children)
+
+def p_programme_recursive_line(p):
+    ''' programme : line programme '''
+    p[0] = AST.ProgramNode(p[2])
 
 def p_statement(p):
     ''' statement : assignation
@@ -47,6 +50,10 @@ def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
+def p_newline(p):
+    ''' line : NEWLINE '''
+    p[0] = AST.NewLineNode(p[1])
+
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
             | expression MUL_OP expression'''
@@ -59,12 +66,7 @@ def p_expression_num_or_var(p):
 
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
-    p[0] = p[2]
-
-# define the newline
-def p_newline(p):
-    ''' expression : NEWLINE'''
-    p[0] = AST.NewLineNode(p[1])    
+    p[0] = p[2]    
 
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
@@ -97,7 +99,8 @@ if __name__ == "__main__":
     import sys
 
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog)
+    #result = yacc.parse(prog, debug=1) to see more
+    result = yacc.parse(prog, debug = 1)
     if result:
         print (result)
 

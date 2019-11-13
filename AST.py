@@ -126,7 +126,7 @@ class WhileNode(Node):
 
 # define the classe NewLineNode
 class NewLineNode(Node):
-    type = 'newline'
+    type = 'line'
 
 class ForNode(Node):
     type = 'for'
