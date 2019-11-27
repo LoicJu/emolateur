@@ -32,8 +32,9 @@ def p_structure(p):
 
 # identifiant et nombre sont peut-etre provisoires
 def p_for(p):
-    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
-    p[0] = AST.ForNode([p[2],p[4],p[6],p[8],p[10]])
+    ''' structure : FOR expression_for '{' programme '}' '''
+    #p[0] = AST.ForNode([p[2],p[4],p[6],p[8],p[10]])
+    p[0] = AST.ForNode([p[2],p[4]])
 
 # PEUT-ETRE PROVISOIRE
 def p_nombre(p):
@@ -44,6 +45,11 @@ def p_nombre(p):
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
+
+# PROBLEME ICI, "-" et "+" ne foncitonne pas pour l'interpreteur, le parser et le reste marche
+def p_expression_for(p):
+    '''expression_for : identifiant IN nombre ',' nombre ',' nombre '''
+    p[0]= AST.ForOpNode(AST.AssignNode([AST.TokenNode(p[1]),p[3]]), AST.OpNode("-",[p[1],p[5]]), AST.OpNode("+", [p[1] , p[7]]))
 
 def p_expression_op(p):
     '''expression : expression ADD_OP expression

@@ -114,6 +114,15 @@ class OpNode(Node):
 
     def __repr__(self):
         return "%s (%s)" % (self.op, self.nbargs)
+    
+class ForOpNode(Node):
+    def __init__(self, start, stop, step):
+        children = [start,stop,step]
+        Node.__init__(self,children)
+        self.step = step
+        self.start = start
+    def __repr__(self):
+        return "%s %s %s" % (self.start, self.children, self.step)
 
 class AssignNode(Node):
     type = '='

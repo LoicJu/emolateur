@@ -10,6 +10,19 @@ def thread(self, lastNode):
 
 @addToClass(AST.WhileNode)
 def thread(self, lastNode):
+    print("SELF", self)
+    print("SELF CHILD 0",self.children[0])
+    beforeCond = lastNode
+    exitCond = self.children[0].thread(lastNode)
+    exitCond.addNext(self)
+    exitBody = self.children[1].thread(self)
+    exitBody.addNext(beforeCond.next[-1])
+    return self
+
+@addToClass(AST.ForNode)
+def thread(self, lastNode):
+    print("SELF", self)
+    print("SELF CHILD 0",self.children[0])
     beforeCond = lastNode
     exitCond = self.children[0].thread(lastNode)
     exitCond.addNext(self)
@@ -23,7 +36,7 @@ def thread(tree):
     return entry
 
 if __name__ == "__main__":
-    from parser import parse
+    from parserEmo import parse
     import sys, os
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
