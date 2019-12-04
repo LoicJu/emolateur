@@ -24,6 +24,10 @@ def valueOfToken(t):
 
 def execute(node):
     while node:
+        print("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+        print(node.__class__)
+        print(node)
+        print(stack)
         if node.__class__ in [AST.EntryNode, AST.ProgramNode]:
             pass
         elif node.__class__ == AST.TokenNode:

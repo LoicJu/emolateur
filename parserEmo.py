@@ -32,9 +32,14 @@ def p_structure(p):
 
 # identifiant et nombre sont peut-etre provisoires
 def p_for(p):
-    ''' structure : FOR expression_for '{' programme '}' '''
-    #p[0] = AST.ForNode([p[2],p[4],p[6],p[8],p[10]])
-    p[0] = AST.ForNode([p[2],p[4]])
+    #''' structure : FOR expression_for '{' programme '}' '''
+    #p[0] = AST.ForNode([p[2],p[4]])
+    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
+    assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
+    cond = AST.OpNode('-',[p[2],p[6]]) # ICI SEPARER LES A CAR IL FAUT FAIRE UN TOKEN NODE POUR SEPARER MAIS CA NE JOUE PAS DANS OPNODE DE RECEVOIR UN TOKEN, CHANGER CA
+    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [p[2] , p[8]])])
+    programme = p[10]
+    p[0] = AST.ForNode([assign,cond,increment,programme])
 
 # PEUT-ETRE PROVISOIRE
 def p_nombre(p):
@@ -45,11 +50,6 @@ def p_nombre(p):
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
-
-# PROBLEME ICI, "-" et "+" ne foncitonne pas pour l'interpreteur, le parser et le reste marche
-def p_expression_for(p):
-    '''expression_for : identifiant IN nombre ',' nombre ',' nombre '''
-    p[0]= AST.ForOpNode(AST.AssignNode([AST.TokenNode(p[1]),p[3]]), AST.OpNode("-",[p[1],p[5]]), AST.OpNode("+", [p[1] , p[7]]))
 
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
