@@ -15,6 +15,7 @@ tokens = (
 	'NUMBER',
 	'ADD_OP',
 	'MUL_OP',
+	'CMP_OP',
 	'IDENTIFIER',
 	'NEWLINE',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
@@ -27,6 +28,10 @@ def t_ADD_OP(t):
 
 def t_MUL_OP(t):
 	r'[*/]'
+	return t
+
+def t_CMP_OP(t):
+	r'={2}|!=|<=|>=|[<>]'
 	return t
 
 def t_NUMBER(t):
@@ -49,7 +54,7 @@ def t_NEWLINE(t):
 	r'\n+'
 	# line below not necessary, need to understand what it does and what's its use, maybe useless
 	#t.lexer.lineno += len(t.value)
-	return t	
+	return t
 
 t_ignore  = ' \t'
 
