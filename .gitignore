@@ -7,6 +7,7 @@ generated/
 
 # ast
 *-ast.pdf
+*-ast-threaded.pdf
 
 ### macOS ###
 # General

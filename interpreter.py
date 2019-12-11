@@ -5,10 +5,16 @@ Interprets and executes the code from the given file.
 import AST
 
 operations = {
-    '+' : lambda x,y: x+y,
-    '-' : lambda x,y: x-y,
-    '*' : lambda x,y: x*y,
-    '/' : lambda x,y: x/y,
+    '+'  : lambda x,y: x+y,
+    '-'  : lambda x,y: x-y,
+    '*'  : lambda x,y: x*y,
+    '/'  : lambda x,y: x/y,
+    '==' : lambda x,y: x==y,
+    '!=' : lambda x,y: x!=y,
+    '<=' : lambda x,y: x<=y,
+    '>=' : lambda x,y: x>=y,
+    '<'  : lambda x,y: x<y,
+    '>'  : lambda x,y: x>y,
 }
 
 stack = []

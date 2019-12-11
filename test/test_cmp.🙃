@@ -1,8 +1,13 @@
 a = 10
-
-a == 9
-a != 3
-a > 10
-a < 7
-a <= 32
-a >= 42
+b = a == 10
+print(b)
+b = a != 10
+print(b)
+b = a <= 10
+print(b)
+b = a >= 11
+print(b)
+b = a < 12
+print(b)
+b = a > 10
+print(b)

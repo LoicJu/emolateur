@@ -10,7 +10,7 @@ import AST
 vars = {}
 
 def p_programme_statement(p):
-    ''' programme : statement 
+    ''' programme : statement
         | statement line '''
     p[0] = AST.ProgramNode(p[1])
 
@@ -56,7 +56,8 @@ def p_newline(p):
 
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
-            | expression MUL_OP expression'''
+            | expression MUL_OP expression
+            | expression CMP_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 def p_expression_num_or_var(p):
@@ -66,7 +67,7 @@ def p_expression_num_or_var(p):
 
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
-    p[0] = p[2]    
+    p[0] = p[2]
 
 def p_minus(p):
     ''' expression : ADD_OP expression %prec UMINUS'''
@@ -99,8 +100,8 @@ if __name__ == "__main__":
     import sys
 
     prog = open(sys.argv[1]).read()
-    #result = yacc.parse(prog, debug=1) to see more
-    result = yacc.parse(prog, debug = 1)
+    result = yacc.parse(prog, debug=1) #to see more
+    #result = yacc.parse(prog, debug = 0)
     if result:
         print (result)
 
