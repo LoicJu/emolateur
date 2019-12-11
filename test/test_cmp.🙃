@@ -1,0 +1,13 @@
+a = 10
+b = a == 10
+print(b)
+b = a != 10
+print(b)
+b = a <= 10
+print(b)
+b = a >= 11
+print(b)
+b = a < 12
+print(b)
+b = a > 10
+print(b)

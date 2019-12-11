@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP FOR IDENTIFIER IN MUL_OP NUMBER PRINT WHILE programme : statement  programme : statement ';' programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}'  nombre : NUMBER  identifiant : IDENTIFIER expression : expression ADD_OP expression\n            | expression MUL_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
+_lr_signature = "leftADD_OPleftMUL_OPrightUMINUSADD_OP CMP_OP FOR IDENTIFIER IN MUL_OP NEWLINE NUMBER PRINT WHILE programme : statement\n        | statement line  programme : statement line programme  programme : line programme  statement : assignation\n        | structure  statement : PRINT expression  structure : WHILE expression '{' programme '}'  structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}'  nombre : NUMBER  identifiant : IDENTIFIER  line : NEWLINE expression : expression ADD_OP expression\n            | expression MUL_OP expression\n            | expression CMP_OP expressionexpression : NUMBER\n        | IDENTIFIER expression : '(' expression ')'  expression : ADD_OP expression %prec UMINUS assignation : IDENTIFIER '=' expression "
     
-_lr_action_items = {'PRINT':([0,9,25,38,],[5,5,5,5,]),'IDENTIFIER':([0,5,7,8,9,11,14,15,20,21,25,38,],[6,13,13,18,6,13,13,13,13,13,6,6,]),'WHILE':([0,9,25,38,],[7,7,7,7,]),'FOR':([0,9,25,38,],[8,8,8,8,]),'$end':([1,2,3,4,10,12,13,19,22,24,27,28,29,33,40,],[0,-1,-3,-4,-5,-12,-13,-2,-15,-16,-10,-11,-14,-6,-7,]),'}':([2,3,4,10,12,13,19,22,24,27,28,29,30,33,39,40,],[-1,-3,-4,-5,-12,-13,-2,-15,-16,-10,-11,-14,33,-6,40,-7,]),';':([2,3,4,10,12,13,22,24,27,28,29,33,40,],[9,-3,-4,-5,-12,-13,-15,-16,-10,-11,-14,-6,-7,]),'NUMBER':([5,7,11,14,15,20,21,26,34,36,],[12,12,12,12,12,12,12,32,32,32,]),'(':([5,7,11,14,15,20,21,],[14,14,14,14,14,14,14,]),'ADD_OP':([5,7,10,11,12,13,14,15,16,20,21,22,23,24,27,28,29,],[11,11,20,11,-12,-13,11,11,20,11,11,-15,20,20,-10,-11,-14,]),'=':([6,],[15,]),'MUL_OP':([10,12,13,16,22,23,24,27,28,29,],[21,-12,-13,21,-15,21,21,21,-11,-14,]),'{':([12,13,16,22,27,28,29,32,37,],[-12,-13,25,-15,-10,-11,-14,-8,38,]),')':([12,13,22,23,27,28,29,],[-12,-13,-15,29,-10,-11,-14,]),'IN':([17,18,],[26,-9,]),',':([31,32,35,],[34,-8,36,]),}
+_lr_action_items = {'PRINT':([0,3,7,11,29,43,],[6,6,-12,6,6,6,]),'NEWLINE':([0,2,3,4,5,7,11,13,15,16,26,28,29,31,32,33,34,38,43,45,],[7,7,7,-5,-6,-12,7,-7,-16,-17,-19,-20,7,-13,-14,-15,-18,-8,7,-9,]),'IDENTIFIER':([0,3,6,7,9,10,11,14,17,18,23,24,25,29,43,],[8,8,16,-12,16,21,8,16,16,16,16,16,16,8,8,]),'WHILE':([0,3,7,11,29,43,],[9,9,-12,9,9,9,]),'FOR':([0,3,7,11,29,43,],[10,10,-12,10,10,10,]),'$end':([1,2,4,5,7,11,12,13,15,16,22,26,28,31,32,33,34,38,45,],[0,-1,-5,-6,-12,-2,-4,-7,-16,-17,-3,-19,-20,-13,-14,-15,-18,-8,-9,]),'}':([2,4,5,7,11,12,13,15,16,22,26,28,31,32,33,34,35,38,44,45,],[-1,-5,-6,-12,-2,-4,-7,-16,-17,-3,-19,-20,-13,-14,-15,-18,38,-8,45,-9,]),'NUMBER':([6,9,14,17,18,23,24,25,30,39,41,],[15,15,15,15,15,15,15,15,37,37,37,]),'(':([6,9,14,17,18,23,24,25,],[17,17,17,17,17,17,17,17,]),'ADD_OP':([6,9,13,14,15,16,17,18,19,23,24,25,26,27,28,31,32,33,34,],[14,14,23,14,-16,-17,14,14,23,14,14,14,-19,23,23,-13,-14,23,-18,]),'=':([8,],[18,]),'MUL_OP':([13,15,16,19,26,27,28,31,32,33,34,],[24,-16,-17,24,-19,24,24,24,-14,24,-18,]),'CMP_OP':([13,15,16,19,26,27,28,31,32,33,34,],[25,-16,-17,25,-19,25,25,-13,-14,25,-18,]),'{':([15,16,19,26,31,32,33,34,37,42,],[-16,-17,29,-19,-13,-14,-15,-18,-10,43,]),')':([15,16,26,27,31,32,33,34,],[-16,-17,-19,34,-13,-14,-15,-18,]),'IN':([20,21,],[30,-11,]),',':([36,37,40,],[39,-10,41,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'programme':([0,9,25,38,],[1,19,30,39,]),'statement':([0,9,25,38,],[2,2,2,2,]),'assignation':([0,9,25,38,],[3,3,3,3,]),'structure':([0,9,25,38,],[4,4,4,4,]),'expression':([5,7,11,14,15,20,21,],[10,16,22,23,24,27,28,]),'identifiant':([8,],[17,]),'nombre':([26,34,36,],[31,35,37,]),}
+_lr_goto_items = {'programme':([0,3,11,29,43,],[1,12,22,35,44,]),'statement':([0,3,11,29,43,],[2,2,2,2,2,]),'line':([0,2,3,11,29,43,],[3,11,3,3,3,3,]),'assignation':([0,3,11,29,43,],[4,4,4,4,4,]),'structure':([0,3,11,29,43,],[5,5,5,5,5,]),'expression':([6,9,14,17,18,23,24,25,],[13,19,26,27,28,31,32,33,]),'identifiant':([10,],[20,]),'nombre':([30,39,41,],[36,40,42,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,20 +27,25 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> programme","S'",1,None,None,None),
-  ('programme -> statement','programme',1,'p_programme_statement','parserEmo.py',14),
-  ('programme -> statement ; programme','programme',3,'p_programme_recursive','parserEmo.py',19),
-  ('statement -> assignation','statement',1,'p_statement','parserEmo.py',23),
-  ('statement -> structure','statement',1,'p_statement','parserEmo.py',24),
-  ('statement -> PRINT expression','statement',2,'p_statement_print','parserEmo.py',28),
-  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parserEmo.py',32),
-  ('structure -> FOR identifiant IN nombre , nombre , nombre { programme }','structure',11,'p_for','parserEmo.py',37),
-  ('nombre -> NUMBER','nombre',1,'p_nombre','parserEmo.py',46),
-  ('identifiant -> IDENTIFIER','identifiant',1,'p_identifiant','parserEmo.py',51),
-  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parserEmo.py',55),
-  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parserEmo.py',56),
-  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',60),
-  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',61),
-  ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',65),
-  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',69),
-  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',73),
+
+  ('programme -> statement','programme',1,'p_programme_statement','parserEmo.py',13),
+  ('programme -> statement line','programme',2,'p_programme_statement','parserEmo.py',14),
+  ('programme -> statement line programme','programme',3,'p_programme_recursive','parserEmo.py',18),
+  ('programme -> line programme','programme',2,'p_programme_recursive_line','parserEmo.py',22),
+  ('statement -> assignation','statement',1,'p_statement','parserEmo.py',26),
+  ('statement -> structure','statement',1,'p_statement','parserEmo.py',27),
+  ('statement -> PRINT expression','statement',2,'p_statement_print','parserEmo.py',31),
+  ('structure -> WHILE expression { programme }','structure',5,'p_structure','parserEmo.py',35),
+  ('structure -> FOR identifiant IN nombre , nombre , nombre { programme }','structure',11,'p_for','parserEmo.py',40),
+  ('nombre -> NUMBER','nombre',1,'p_nombre','parserEmo.py',45),
+  ('identifiant -> IDENTIFIER','identifiant',1,'p_identifiant','parserEmo.py',50),
+  ('line -> NEWLINE','line',1,'p_newline','parserEmo.py',54),
+  ('expression -> expression ADD_OP expression','expression',3,'p_expression_op','parserEmo.py',58),
+  ('expression -> expression MUL_OP expression','expression',3,'p_expression_op','parserEmo.py',59),
+  ('expression -> expression CMP_OP expression','expression',3,'p_expression_op','parserEmo.py',60),
+  ('expression -> NUMBER','expression',1,'p_expression_num_or_var','parserEmo.py',64),
+  ('expression -> IDENTIFIER','expression',1,'p_expression_num_or_var','parserEmo.py',65),
+  ('expression -> ( expression )','expression',3,'p_expression_paren','parserEmo.py',69),
+  ('expression -> ADD_OP expression','expression',2,'p_minus','parserEmo.py',73),
+  ('assignation -> IDENTIFIER = expression','assignation',3,'p_assign','parserEmo.py',77),
 ]

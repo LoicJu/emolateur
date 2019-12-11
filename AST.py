@@ -124,6 +124,10 @@ class PrintNode(Node):
 class WhileNode(Node):
     type = 'while'
 
+# define the classe NewLineNode
+class NewLineNode(Node):
+    type = 'line'
+
 class ForNode(Node):
     type = 'for'
 
