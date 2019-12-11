@@ -5,6 +5,7 @@ a = a+10
 print a#testComment
 
 b = 0
-for b in 0, 10, 1 {print b
+for b in 0, 10, 1 {
+print b
     b = b+3
 }
