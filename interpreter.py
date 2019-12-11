@@ -16,9 +16,7 @@ vars = {}
 
 
 def valueOfToken(t):
-    print(vars)
     if isinstance(t, AST.TokenNode):
-        #t = t[1:-1]
         return vars[t]
     if isinstance(t, str):
         try:
@@ -43,6 +41,7 @@ def execute(node):
         elif node.__class__ == AST.AssignNode:
             val = valueOfToken(stack.pop())
             name = stack.pop()
+            #if name not in vars:
             vars[name] = val
         elif node.__class__ == AST.PrintNode:
             val = stack.pop()
