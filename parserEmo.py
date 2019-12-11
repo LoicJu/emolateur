@@ -35,6 +35,10 @@ def p_structure(p):
     ''' structure : WHILE expression '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
 
+def p_cond(p):
+    ''' structure : IF expression '{' programme '}' '''
+    p[0] = AST.CondNode([p[2],p[4]])
+
 # identifiant et nombre sont peut-etre provisoires
 def p_for(p):
     ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''

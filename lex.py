@@ -9,7 +9,7 @@ reserved_words = (
 	'print',
 	'for',
 	'in',
-	#'if',
+	'if',
 	#'elsif',
 	#'else',
 )

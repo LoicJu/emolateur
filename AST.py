@@ -73,7 +73,7 @@ class Node:
             for i,c in enumerate(self.next):
                 if not c: return
                 col = (col + 1) % len(colors)
-                color = colors[col]
+                color = colors[0]
                 c.threadTree(graph, seen, col)
                 edge = pydot.Edge(self.ID,c.ID)
                 edge.set_color(color)
@@ -130,6 +130,9 @@ class NewLineNode(Node):
 
 class ForNode(Node):
     type = 'for'
+
+class CondNode(Node):
+    type = 'cond'
 
 class EntryNode(Node):
     type = 'ENTRY'

@@ -55,6 +55,17 @@ def execute(node):
             else:
                 node = node.next[1]
             continue
+        elif node.__class__ == AST.CondNode:
+
+            print('---stack---')
+            print(stack)
+
+            cond = valueOfToken(stack.pop())
+            if cond:
+                node = node.next[0]
+            else:
+                node.next[1]
+            continue
         if node.next:
             node = node.next[0]
         else:
