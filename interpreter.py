@@ -23,7 +23,9 @@ vars = {}
 
 def valueOfToken(t):
     if isinstance(t, AST.TokenNode):
-        return vars[t]
+        test= str(t)
+        test = test[1:-2]
+        return vars[test]
     if isinstance(t, str):
         try:
             return vars[t]
@@ -47,8 +49,12 @@ def execute(node):
         elif node.__class__ == AST.AssignNode:
             val = valueOfToken(stack.pop())
             name = stack.pop()
-            #if name not in vars:
-            vars[name] = val
+            if isinstance(name, AST.TokenNode):
+                test= str(name)
+                test = test[1:-2]
+                vars[test] = val
+            else :
+                vars[name] = val
         elif node.__class__ == AST.PrintNode:
             val = stack.pop()
             print(valueOfToken(val))

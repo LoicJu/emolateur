@@ -41,7 +41,7 @@ def p_structure(p):
 def p_for(p):
     ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
-    cond = AST.OpNode('-',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
     increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])

@@ -1,6 +1,7 @@
 a = 40
-while(a-100){
-a = a+10
+a = 0
+while(a<100){
+a = a+110
 }
 print a#testComment
 
