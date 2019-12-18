@@ -133,6 +133,7 @@ class ForNode(Node):
 
 class CondNode(Node):
     type = 'cond'
+    evaluated = False
 
 class EntryNode(Node):
     type = 'ENTRY'

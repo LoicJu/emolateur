@@ -56,15 +56,17 @@ def execute(node):
                 node = node.next[1]
             continue
         elif node.__class__ == AST.CondNode:
-
-            print('---stack---')
-            print(stack)
-
-            cond = valueOfToken(stack.pop())
-            if cond:
-                node = node.next[0]
-            else:
-                node.next[1]
+            # Condition not evaluated yet
+            if not node.evaluated:
+                # Avoids evaluating the same condition twice
+                node.evaluated = True
+                cond = valueOfToken(stack.pop())
+                # The condition is True
+                if cond:
+                    node = node.next[0]
+                    continue
+            # The condition has already been evaluated OR the condition is False
+            node = node.next[1]
             continue
         if node.next:
             node = node.next[0]

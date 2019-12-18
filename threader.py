@@ -19,16 +19,10 @@ def thread(self, lastNode):
 
 @addToClass(AST.CondNode)
 def thread(self, lastNode):
-    #beforeCond = lastNode
-    exitCond = self.children[0].thread(lastNode)
-    exitCond.addNext(self)
-    exitBody = self.children[1].thread(self)
-    #exitBody.addNext(self)
-
-    print('---exitCond---')
-    print(exitCond)
-    print('---exitBody---')
-    print(exitBody)
+    cond = self.children[0].thread(lastNode)
+    cond.addNext(self)
+    prog = self.children[1].thread(self)
+    prog.addNext(self)
     return self
 
 def thread(tree):
