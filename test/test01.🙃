@@ -1,8 +1,17 @@
 num a = 40
-
-while(a-100){
-a = a+10
+str b = "coucouc"
+print b
 print a
-}
 
-print a#ofkfodk
+while(a<100){
+a = a+10
+}
+a =1000+a
+b = "hello"
+print b
+print a #ofkfodk
+
+
+for a in 0, 10, 2 {
+print b
+}

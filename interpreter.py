@@ -21,14 +21,14 @@ stack = []
 vars = {} # {identifier : [var_type, value]}
 
 def valueOfToken(node):
-    if not isinstance(node, AST.OpNode):
-        if(isinstance(node.tok, str) and not node.is_string):
-            try:
-                return vars[node.tok][1]
-            except KeyError:
-                print ("*** Error: variable %s undefined!" % node.tok)
-        return node.tok
-    return node
+    if isinstance(node, AST.OpNode):
+        return node
+    if(isinstance(node.tok, str) and not node.is_string):
+        try:
+            return vars[node.tok][1]
+        except KeyError:
+            print ("*** Error: variable %s undefined!" % node.tok)
+    return node.tok
 '''def valueOfToken(t):
     if isinstance(t, AST.TokenNode):
         test= str(t)
@@ -56,7 +56,9 @@ def execute(node):
                 arg1 = 0
             stack.append(operations[node.op](arg1,arg2))
         elif node.__class__ == AST.AssignNode:
-            val = valueOfToken(stack.pop())
+            val = stack.pop()
+            if isinstance(val,AST.TokenNode):
+                val = valueOfToken(val)
             name = stack.pop()
             if isinstance(name, AST.TokenNode):
                 name = str(name)
@@ -81,7 +83,7 @@ def execute(node):
             val = stack.pop()
             print(valueOfToken(val))
         elif node.__class__ == AST.WhileNode:
-            cond = valueOfToken(stack.pop())
+            cond = stack.pop()
             if cond:
                 node = node.next[0]
             else:
