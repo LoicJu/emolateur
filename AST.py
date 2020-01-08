@@ -138,6 +138,14 @@ class NewLineNode(Node):
 class ForNode(Node):
     type = 'for'
 
+class CondIfNode(Node):
+    type = 'cond_if'
+    evaluated = False
+
+class CondIfElseNode(Node):
+    type = 'cond_if_else'
+    evaluated = False
+
 class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):

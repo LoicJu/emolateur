@@ -9,3 +9,9 @@ b = -10
 for b in 0, 10, 2 {
 print b
 }
+
+if b >= 10 {
+print b
+} else {
+print a
+}

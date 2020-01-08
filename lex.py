@@ -14,9 +14,8 @@ reserved_words = (
 	'False',
 	'for',
 	'in',
-	#'if',
-	#'elsif',
-	#'else',
+	'if',
+	'else',
 )
 
 tokens = (

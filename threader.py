@@ -21,17 +21,30 @@ def thread(self, lastNode):
 def thread(self, lastNode):
     beforeCond = self.children[0]
     assign = self.children[0].thread(lastNode)
-    
-    
     exitCond = self.children[1].thread(self.children[0])
     exitCond.addNext(self)
-
     exitBody = self.children[3].thread(self)
-
     # increment après
     increment = self.children[2].thread(self.children[3])
     increment.addNext(beforeCond.next[-1])
+    return self
 
+@addToClass(AST.CondIfNode)
+def thread(self, lastNode):
+    cond = self.children[0].thread(lastNode)
+    cond.addNext(self)
+    prog = self.children[1].thread(self)
+    prog.addNext(self)
+    return self
+
+@addToClass(AST.CondIfElseNode)
+def thread(self, lastNode):
+    cond = self.children[0].thread(lastNode)
+    cond.addNext(self)
+    prog_if = self.children[1].thread(self)
+    prog_if.addNext(self)
+    prog_else = self.children[2].thread(self)
+    prog_else.addNext(self)
     return self
 
 def thread(tree):
