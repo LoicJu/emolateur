@@ -21,17 +21,26 @@ stack = []
 vars = {} # {identifier : [var_type, value]}
 
 def valueOfToken(node):
-    if(isinstance(node.tok, str) and not node.is_string):
-        if isinstance(t, AST.TokenNode):
-            test= str(t)
-            test = test[1:-2]
-            return vars[test]
-        if isinstance(t, str):
+    if not isinstance(node, AST.OpNode):
+        if(isinstance(node.tok, str) and not node.is_string):
             try:
                 return vars[node.tok][1]
             except KeyError:
                 print ("*** Error: variable %s undefined!" % node.tok)
-    return node.tok
+        return node.tok
+    return node
+'''def valueOfToken(t):
+    if isinstance(t, AST.TokenNode):
+        test= str(t)
+        #test = test[1:-2]
+        return vars[test][1]
+    if isinstance(t, str):
+        try:
+            return vars[node.tok][1]
+        except KeyError:
+            print ("*** Error: variable %s undefined!" % node.tok)
+    return t    '''   
+
 
 def execute(node):
     while node:

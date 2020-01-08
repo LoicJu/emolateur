@@ -11,7 +11,7 @@ reserved_words = (
 	'str',
 	'bool',
 	'True',
-	'False'
+	'False',
 	'for',
 	'in',
 	#'if',
