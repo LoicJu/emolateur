@@ -23,6 +23,10 @@ vars = {} # {identifier : [var_type, value]}
 def valueOfToken(node):
     if isinstance(node, AST.OpNode):
         return node
+    if isinstance(node.tok, AST.TokenNode):
+        node= str(node.tok)
+        node = node[1:-2]
+        return vars[node][1]
     if(isinstance(node.tok, str) and not node.is_string):
         try:
             return vars[node.tok][1]
@@ -90,7 +94,7 @@ def execute(node):
                 node = node.next[1]
             continue
         elif node.__class__ == AST.ForNode:
-            cond = valueOfToken(stack.pop())
+            cond = stack.pop()
             if cond:
                 node = node.next[0]
             else:
@@ -101,7 +105,7 @@ def execute(node):
             if not node.evaluated:
                 # Avoids evaluating the same condition twice
                 node.evaluated = True
-                cond = valueOfToken(stack.pop())
+                cond = stack.pop()
                 # The condition is True
                 if cond:
                     node = node.next[0]
@@ -114,7 +118,7 @@ def execute(node):
             if not node.evaluated:
                 # Avoids evaluating the same condition twice
                 node.evaluated = True
-                cond = valueOfToken(stack.pop())
+                cond = stack.pop()
                 # The condition is True
                 if cond:
                     node = node.next[0]

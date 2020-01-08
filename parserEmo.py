@@ -48,19 +48,13 @@ def p_cond_if_else(p):
 
 # identifiant et nombre sont peut-etre provisoires
 def p_for(p):
-    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
+    ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
     cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
     increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])
 
-# PEUT-ETRE PROVISOIRE
-def p_nombre(p):
-    ''' nombre : NUMBER '''
-    p[0] = AST.TokenNode(p[1])
-
-# PEUT-ETRE PROVISOIRE
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
