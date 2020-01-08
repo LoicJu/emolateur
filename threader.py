@@ -17,6 +17,18 @@ def thread(self, lastNode):
     exitBody.addNext(beforeCond.next[-1])
     return self
 
+@addToClass(AST.ForNode)
+def thread(self, lastNode):
+    beforeCond = self.children[0]
+    assign = self.children[0].thread(lastNode)
+    exitCond = self.children[1].thread(self.children[0])
+    exitCond.addNext(self)
+    exitBody = self.children[3].thread(self)
+    # increment après
+    increment = self.children[2].thread(self.children[3])
+    increment.addNext(beforeCond.next[-1])
+    return self
+
 @addToClass(AST.CondIfNode)
 def thread(self, lastNode):
     cond = self.children[0].thread(lastNode)

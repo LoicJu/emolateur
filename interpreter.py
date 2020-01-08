@@ -20,7 +20,12 @@ operations = {
 stack = []
 vars = {}
 
+
 def valueOfToken(t):
+    if isinstance(t, AST.TokenNode):
+        test= str(t)
+        test = test[1:-2]
+        return vars[test]
     if isinstance(t, str):
         try:
             return vars[t]
@@ -44,11 +49,23 @@ def execute(node):
         elif node.__class__ == AST.AssignNode:
             val = valueOfToken(stack.pop())
             name = stack.pop()
-            vars[name] = val
+            if isinstance(name, AST.TokenNode):
+                test= str(name)
+                test = test[1:-2]
+                vars[test] = val
+            else :
+                vars[name] = val
         elif node.__class__ == AST.PrintNode:
             val = stack.pop()
-            print (valueOfToken(val))
+            print(valueOfToken(val))
         elif node.__class__ == AST.WhileNode:
+            cond = valueOfToken(stack.pop())
+            if cond:
+                node = node.next[0]
+            else:
+                node = node.next[1]
+            continue
+        elif node.__class__ == AST.ForNode:
             cond = valueOfToken(stack.pop())
             if cond:
                 node = node.next[0]

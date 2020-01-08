@@ -6,6 +6,7 @@ import ply.yacc as yacc
 
 from lex import tokens
 import AST
+import copy
 
 vars = {}
 
@@ -14,6 +15,7 @@ def p_programme_statement(p):
         | statement line '''
     p[0] = AST.ProgramNode(p[1])
 
+# enlever ca ?
 def p_programme_recursive(p):
     ''' programme : statement line programme '''
     p[0] = AST.ProgramNode([p[1]]+p[3].children)
@@ -46,7 +48,11 @@ def p_cond_if_else(p):
 # identifiant et nombre sont peut-etre provisoires
 def p_for(p):
     ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
-    p[0] = AST.ForNode([p[2],p[4],p[6],p[8],p[10]])
+    assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
+    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
+    programme = p[10]
+    p[0] = AST.ForNode([assign,cond,increment,programme])
 
 # PEUT-ETRE PROVISOIRE
 def p_nombre(p):
