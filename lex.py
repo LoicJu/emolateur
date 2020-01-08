@@ -20,6 +20,9 @@ tokens = (
 	'CMP_OP',
 	'IDENTIFIER',
 	'NEWLINE',
+	# EMOJIS
+	'EMO_CREEPYSMILE',
+	# END OF EMOJIS
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
 literals = '()={},'
@@ -59,6 +62,15 @@ def t_NEWLINE(t):
 	return t
 
 t_ignore  = ' \t'
+
+# EMOJIS
+# Unicode must be 8 chars long !
+
+def t_EMO_CREEPYSMILE(t):
+	r'\U0001F642'
+	return t
+
+# END OF EMOJIS
 
 def t_error(t):
 	print ("Illegal character '%s'" % repr(t.value[0]))
