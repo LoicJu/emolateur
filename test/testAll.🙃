@@ -1,0 +1,11 @@
+a = 40
+a = 0
+while(a<100){
+a = a+110
+}
+print a#testComment
+
+b = -10
+for b in 0, 10, 2 {
+print b
+}

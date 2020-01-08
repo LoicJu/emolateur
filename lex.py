@@ -12,6 +12,11 @@ reserved_words = (
 	'bool',
 	'True',
 	'False'
+	'for',
+	'in',
+	#'if',
+	#'elsif',
+	#'else',
 )
 
 tokens = (
@@ -20,10 +25,12 @@ tokens = (
 	'BOOLEAN',
 	'ADD_OP',
 	'MUL_OP',
+	'CMP_OP',
 	'IDENTIFIER',
+	'NEWLINE',
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
-literals = '();={}'
+literals = '()={},'
 
 def t_ADD_OP(t):
 	r'[+-]'
@@ -31,6 +38,10 @@ def t_ADD_OP(t):
 
 def t_MUL_OP(t):
 	r'[*/]'
+	return t
+
+def t_CMP_OP(t):
+	r'={2}|!=|<=|>=|[<>]'
 	return t
 
 def t_NUMBER(t):
@@ -77,9 +88,12 @@ def t_IDENTIFIER(t):
 		t.type = t.value.upper()
 	return t
 
-def t_newline(t):
+# this define a new line
+def t_NEWLINE(t):
 	r'\n+'
-	t.lexer.lineno += len(t.value)
+	# line below not necessary, need to understand what it does and what's its use, maybe useless
+	#t.lexer.lineno += len(t.value)
+	return t
 
 t_ignore  = ' \t'
 
@@ -90,6 +104,10 @@ def t_error(t):
 def t_COMMENT(t):
      r'\#.*'
      pass
+
+def find_column(input, token):
+    line_start = input.rfind('\n', 0, token.lexpos) + 1
+    return (token.lexpos - line_start) + 1
 
 
 

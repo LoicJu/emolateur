@@ -1,7 +1,9 @@
-str a = "OuiOui";
-num b = 5;
-a = "nonnon";
+a = 40
 
-num c = 10;
-b = c+b;
-print b
+while(a-100){
+a = a+10
+print a
+}
+
+
+print a#ofkfodk

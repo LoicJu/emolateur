@@ -2,6 +2,13 @@
 # Created by https://www.gitignore.io/api/macos,python
 # Edit at https://www.gitignore.io/?templates=macos,python
 
+# ply
+generated/
+
+# ast
+*-ast.pdf
+*-ast-threaded.pdf
+
 ### macOS ###
 # General
 .DS_Store

@@ -5,10 +5,16 @@ from types import *
 import AST
 
 operations = {
-    '+' : lambda x,y: x+y,
-    '-' : lambda x,y: x-y,
-    '*' : lambda x,y: x*y,
-    '/' : lambda x,y: x/y,
+    '+'  : lambda x,y: x+y,
+    '-'  : lambda x,y: x-y,
+    '*'  : lambda x,y: x*y,
+    '/'  : lambda x,y: x/y,
+    '==' : lambda x,y: x==y,
+    '!=' : lambda x,y: x!=y,
+    '<=' : lambda x,y: x<=y,
+    '>=' : lambda x,y: x>=y,
+    '<'  : lambda x,y: x<y,
+    '>'  : lambda x,y: x>y,
 }
 
 stack = []
@@ -16,10 +22,15 @@ vars = {} # {identifier : [var_type, value]}
 
 def valueOfToken(node):
     if(isinstance(node.tok, str) and not node.is_string):
-        try:
-            return vars[node.tok][1]
-        except KeyError:
-            print ("*** Error: variable %s undefined!" % node.tok)
+        if isinstance(t, AST.TokenNode):
+            test= str(t)
+            test = test[1:-2]
+            return vars[test]
+        if isinstance(t, str):
+            try:
+                return vars[node.tok][1]
+            except KeyError:
+                print ("*** Error: variable %s undefined!" % node.tok)
     return node.tok
 
 def execute(node):
@@ -59,7 +70,7 @@ def execute(node):
 
         elif node.__class__ == AST.PrintNode:
             val = stack.pop()
-            print (valueOfToken(val))
+            print(valueOfToken(val))
         elif node.__class__ == AST.WhileNode:
             cond = valueOfToken(stack.pop())
             if cond:
@@ -67,7 +78,13 @@ def execute(node):
             else:
                 node = node.next[1]
             continue
-
+        elif node.__class__ == AST.ForNode:
+            cond = valueOfToken(stack.pop())
+            if cond:
+                node = node.next[0]
+            else:
+                node = node.next[1]
+            continue
         if node.next:
             node = node.next[0]
         else:

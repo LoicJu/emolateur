@@ -6,16 +6,23 @@ import ply.yacc as yacc
 
 from lex import tokens
 import AST
+import copy
 
 vars = {}
 
 def p_programme_statement(p):
-    ''' programme : statement '''
+    ''' programme : statement
+        | statement line '''
     p[0] = AST.ProgramNode(p[1])
 
+# enlever ca ?
 def p_programme_recursive(p):
-    ''' programme : statement ';' programme '''
+    ''' programme : statement line programme '''
     p[0] = AST.ProgramNode([p[1]]+p[3].children)
+
+def p_programme_recursive_line(p):
+    ''' programme : line programme '''
+    p[0] = AST.ProgramNode(p[2])
 
 def p_statement(p):
     ''' statement : assignation
@@ -31,9 +38,33 @@ def p_structure(p):
     ''' structure : WHILE expression '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
 
+# identifiant et nombre sont peut-etre provisoires
+def p_for(p):
+    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
+    assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
+    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
+    programme = p[10]
+    p[0] = AST.ForNode([assign,cond,increment,programme])
+
+# PEUT-ETRE PROVISOIRE
+def p_nombre(p):
+    ''' nombre : NUMBER '''
+    p[0] = AST.TokenNode(p[1])
+
+# PEUT-ETRE PROVISOIRE
+def p_identifiant(p):
+    ''' identifiant : IDENTIFIER '''
+    p[0] = AST.TokenNode(p[1])
+
+def p_newline(p):
+    ''' line : NEWLINE '''
+    p[0] = AST.NewLineNode(p[1])
+
 def p_expression_op(p):
     '''expression : expression ADD_OP expression
-            | expression MUL_OP expression'''
+            | expression MUL_OP expression
+            | expression CMP_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
 def p_expression_num_or_var_or_bool(p):
@@ -87,15 +118,18 @@ if __name__ == "__main__":
     import sys
 
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog, debug=1)
+    result = yacc.parse(prog, debug=1) #to see more
+    #result = yacc.parse(prog, debug = 0)
     if result:
         print (result)
 
+        '''
         import os
         os.environ["PATH"] += os.pathsep + 'C:/Program Files (x86)/Graphviz2.38/bin/'
         graph = result.makegraphicaltree()
         name = os.path.splitext(sys.argv[1])[0]+'-ast.pdf'
         graph.write_pdf(name)
         print ("wrote ast to", name)
+        '''
     else:
         print ("Parsing returned no result!")
