@@ -1,13 +1,8 @@
 a = 10
+b = 30
 
-if a >= 20 {
+if a <= 20 {
     print a
-}
-
-if a == 10 {
-    print a
-}
-
-if a != 23 {
-    print a
+} else {
+    print b
 }

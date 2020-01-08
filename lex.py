@@ -10,8 +10,8 @@ reserved_words = (
 	'for',
 	'in',
 	'if',
-	#'elsif',
-	#'else',
+	'elsif',
+	'else',
 )
 
 tokens = (

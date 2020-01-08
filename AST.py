@@ -131,8 +131,12 @@ class NewLineNode(Node):
 class ForNode(Node):
     type = 'for'
 
-class CondNode(Node):
-    type = 'cond'
+class CondIfNode(Node):
+    type = 'cond_if'
+    evaluated = False
+
+class CondIfElseNode(Node):
+    type = 'cond_if_else'
     evaluated = False
 
 class EntryNode(Node):

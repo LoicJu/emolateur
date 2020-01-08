@@ -55,7 +55,7 @@ def execute(node):
             else:
                 node = node.next[1]
             continue
-        elif node.__class__ == AST.CondNode:
+        elif node.__class__ == AST.CondIfNode:
             # Condition not evaluated yet
             if not node.evaluated:
                 # Avoids evaluating the same condition twice
@@ -67,6 +67,22 @@ def execute(node):
                     continue
             # The condition has already been evaluated OR the condition is False
             node = node.next[1]
+            continue
+        elif node.__class__ == AST.CondIfElseNode:
+            # Condition not evaluated yet
+            if not node.evaluated:
+                # Avoids evaluating the same condition twice
+                node.evaluated = True
+                cond = valueOfToken(stack.pop())
+                # The condition is True
+                if cond:
+                    node = node.next[0]
+                # Else
+                else:
+                    node = node.next[1]
+                continue
+            # The condition has already been evaluated
+            node = node.next[2]
             continue
         if node.next:
             node = node.next[0]
