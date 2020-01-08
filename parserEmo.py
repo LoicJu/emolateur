@@ -102,7 +102,7 @@ def p_error(p):
         print ("Syntax error in line %d" % p.lineno)
         yacc.errok()
     else:
-        print ("Sytax error: unexpected end of file!")
+        print ("Syntax error: unexpected end of file!")
 
 
 precedence = (

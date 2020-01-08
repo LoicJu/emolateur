@@ -1,17 +1,50 @@
-a = 40
-a = 0
-while(a<100){
-a = a+110
-}
-print a#testComment
 
-b = -10
-for b in 0, 10, 2 {
-print b
+num Nombre = 40
+str Texte = "ceci est du texte"
+bool Boolean = True
+
+str TexteVrai = "Texte si c'est vrai"
+str TexteFaux = "Texte si c'est faux"
+
+
+# montre le fonctionnement de la boucle while
+while(Nombre<100){
+	Nombre = Nombre+10
+	print Nombre
 }
 
-if b >= 10 {
-print b
-} else {
-print a
+
+for Nombre in 0, 10, 2
+{
+	print Nombre
+}
+
+if Nombre < 20
+{
+	print TexteVrai
+}
+
+if Nombre > 20
+{
+	print TexteVrai
+}
+else
+{
+	print TexteFaux
+}
+
+if Boolean
+{
+	print TexteVrai
+}
+
+Boolean = False
+
+if Boolean
+{
+	print TexteVrai
+}
+else
+{
+	print TexteFaux
 }

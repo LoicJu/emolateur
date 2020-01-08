@@ -1,15 +1,12 @@
 num a = 5
-str b = "coucouc"
-num c = 10
-print a
-print b
-print c
 bool d = False
 
-
-
 if d {
-print b
+print a
+}
+
+if a>50 {
+print d
 } else {
 print a
 }

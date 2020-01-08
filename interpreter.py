@@ -106,6 +106,8 @@ def execute(node):
                 # Avoids evaluating the same condition twice
                 node.evaluated = True
                 cond = stack.pop()
+                if isinstance(cond, AST.TokenNode):
+                    cond = valueOfToken(cond)
                 # The condition is True
                 if cond:
                     node = node.next[0]
@@ -119,6 +121,8 @@ def execute(node):
                 # Avoids evaluating the same condition twice
                 node.evaluated = True
                 cond = stack.pop()
+                if isinstance(cond, AST.TokenNode):
+                    cond = valueOfToken(cond)
                 # The condition is True
                 if cond:
                     node = node.next[0]
