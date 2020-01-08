@@ -19,7 +19,8 @@ def p_programme_recursive(p):
 
 def p_statement(p):
     ''' statement : assignation
-        | structure '''
+        | structure
+        | declaration'''
     p[0] = p[1]
 
 def p_statement_print(p):
@@ -35,10 +36,15 @@ def p_expression_op(p):
             | expression MUL_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
-def p_expression_num_or_var(p):
+def p_expression_num_or_var_or_bool(p):
     '''expression : NUMBER
-        | IDENTIFIER '''
+        | IDENTIFIER
+        | BOOLEAN '''
     p[0] = AST.TokenNode(p[1])
+
+def p_expression_string(p):
+    '''expression : STRING '''
+    p[0] = AST.TokenNode(p[1], True)
 
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
@@ -51,6 +57,12 @@ def p_minus(p):
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
+def p_declaration(p):
+    ''' declaration : NUM IDENTIFIER '=' expression
+        | STR IDENTIFIER '=' expression
+        | BOOL IDENTIFIER '=' expression '''
+    p[0] = AST.DeclareNode(p[1], [AST.TokenNode(p[2]), p[4]])
 
 def p_error(p):
     if p:
@@ -75,7 +87,7 @@ if __name__ == "__main__":
     import sys
 
     prog = open(sys.argv[1]).read()
-    result = yacc.parse(prog)
+    result = yacc.parse(prog, debug=1)
     if result:
         print (result)
 

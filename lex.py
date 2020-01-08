@@ -6,11 +6,18 @@ import ply.lex as lex
 
 reserved_words = (
 	'while',
-	'print'
+	'print',
+	'num',
+	'str',
+	'bool',
+	'True',
+	'False'
 )
 
 tokens = (
 	'NUMBER',
+	'STRING',
+	'BOOLEAN',
 	'ADD_OP',
 	'MUL_OP',
 	'IDENTIFIER',
@@ -35,6 +42,35 @@ def t_NUMBER(t):
 		t.value = 0
 	return t
 
+def t_STRING(t):
+	r'\"[^\"]+\"'
+	t.value = str(t.value)
+	t.value = t.value[1:-1]
+	return t
+
+def t_BOOLEAN(t):
+	r'\bTrue\b|\bFalse\b'
+	if(t.value == "False"):
+		t.value = False
+	else:
+		t.value = True
+	return t
+
+def t_NUM(t):
+	r'\bnum\b'
+	t.value = str(t.value)
+	return t
+
+def t_STR(t):
+	r'\bstr\b'
+	t.value = str(t.value)
+	return t
+
+def t_BOOL(t):
+	r'\bbool\b'
+	t.value = str(t.value)
+	return t
+
 def t_IDENTIFIER(t):
 	r'[A-Za-z_]\w*'
 	if t.value in reserved_words:
@@ -54,6 +90,8 @@ def t_error(t):
 def t_COMMENT(t):
      r'\#.*'
      pass
+
+
 
 
 lex.lex()

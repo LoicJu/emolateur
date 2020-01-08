@@ -1,3 +1,7 @@
-a = 42;
-print a#ofkfodk
-#ofmajfosj
+str a = "OuiOui";
+num b = 5;
+a = "nonnon";
+
+num c = 10;
+b = c+b;
+print b

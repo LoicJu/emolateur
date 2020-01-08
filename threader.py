@@ -23,7 +23,7 @@ def thread(tree):
     return entry
 
 if __name__ == "__main__":
-    from parser import parse
+    from parserEmo import parse
     import sys, os
     prog = open(sys.argv[1]).read()
     ast = parse(prog)
