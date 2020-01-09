@@ -28,6 +28,9 @@ tokens = (
 	'IDENTIFIER',
 	'NEWLINE',
 	# EMOJIS
+	'EMO_NUM',
+	'EMO_STR',
+	'EMO_BOOL',
 	'EMO_PENCIL',
 	'EMO_CREEPY_SMILE',
 	'EMO_CREEPY_SMILE_REVERSED',
@@ -105,6 +108,18 @@ t_ignore  = ' \t'
 
 # EMOJIS
 # Unicode must be 8 chars long !
+
+def t_EMO_NUM(t):
+	r'\U0001F522'
+	return t
+
+def t_EMO_STR(t):
+	r'\U0001F4D6'
+	return t
+
+def t_EMO_BOOL(t):
+	r'\U00002049'
+	return t
 
 def t_EMO_PENCIL(t):
 	r'\U0000270F'

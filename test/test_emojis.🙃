@@ -1,5 +1,7 @@
-num a = 10
-num b = 20
+🔢 a = 10
+🔢 b = 20
+📖 string = "Hello"
+⁉️ emo_bool = True
 
 ✅ a < 10 {
 ✏️ a
