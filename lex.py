@@ -34,6 +34,8 @@ tokens = (
 	'EMO_PENCIL',
 	'EMO_CREEPY_SMILE',
 	'EMO_CREEPY_SMILE_REVERSED',
+	'EMO_PLEADING',
+	'EMO_EYES',
 	'EMO_CHECK',
 	'EMO_CROSS',
 	# END OF EMOJIS
@@ -131,6 +133,14 @@ def t_EMO_CREEPY_SMILE(t):
 
 def t_EMO_CREEPY_SMILE_REVERSED(t):
 	r'\U0001F643'
+	return t
+
+def t_EMO_PLEADING(t):
+	r'\U0001F97A'
+	return t
+
+def t_EMO_EYES(t):
+	r'\U0001F440'
 	return t
 
 def t_EMO_CHECK(t):

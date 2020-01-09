@@ -36,7 +36,8 @@ def p_statement_print(p):
     p[0] = AST.PrintNode(p[2])
 
 def p_structure(p):
-    ''' structure : WHILE expression '{' programme '}' '''
+    ''' structure : WHILE expression '{' programme '}'
+        | EMO_EYES expression '{' programme '}' '''
     p[0] = AST.WhileNode([p[2],p[4]])
 
 def p_cond_if(p):
@@ -50,7 +51,8 @@ def p_cond_if_else(p):
     p[0] = AST.CondIfElseNode([p[2],p[4],p[8]])
 
 def p_for(p):
-    ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}' '''
+    ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}'
+        | EMO_CREEPY_SMILE identifiant IN expression ',' expression ',' expression '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
     cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])
     increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])
@@ -58,7 +60,8 @@ def p_for(p):
     p[0] = AST.ForNode([assign,cond,increment,programme])
 
 def p_for_decl(p):
-    ''' structure : FOR NUM identifiant IN expression ',' expression ',' expression '{' programme '}' '''
+    ''' structure : FOR NUM identifiant IN expression ',' expression ',' expression '{' programme '}'
+        | EMO_CREEPY_SMILE_REVERSED EMO_NUM identifiant IN expression ',' expression ',' expression '{' programme '}' '''
     declare = AST.DeclareNode(p[2], [AST.TokenNode(p[3]), p[5]])
     cond = AST.OpNode('<',[AST.TokenNode(p[3]),p[7]])
     increment = AST.AssignNode([AST.TokenNode(p[3]),AST.OpNode('+', [AST.TokenNode(p[3]) , p[9]])])
