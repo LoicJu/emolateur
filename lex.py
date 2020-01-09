@@ -21,6 +21,7 @@ tokens = (
 	'IDENTIFIER',
 	'NEWLINE',
 	# EMOJIS
+	'EMO_PENCIL',
 	'EMO_CREEPYSMILE',
 	# END OF EMOJIS
 ) + tuple(map(lambda s:s.upper(),reserved_words))
@@ -65,6 +66,10 @@ t_ignore  = ' \t'
 
 # EMOJIS
 # Unicode must be 8 chars long !
+
+def t_EMO_PENCIL(t):
+	r'\U0000270F'
+	return t
 
 def t_EMO_CREEPYSMILE(t):
 	r'\U0001F642'

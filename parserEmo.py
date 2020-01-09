@@ -49,7 +49,7 @@ def p_cond_if_else(p):
 def p_for(p):
     ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
-    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node
     increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])
@@ -90,6 +90,14 @@ def p_minus(p):
 def p_assign(p):
     ''' assignation : IDENTIFIER '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
+# EMOJIS
+
+def p_emo_pencil(p):
+    ''' statement : EMO_PENCIL expression '''
+    p[0] = AST.PrintNode(p[2])
+
+# END OF EMOJIS
 
 def p_error(p):
     if p:
