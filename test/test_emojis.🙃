@@ -22,3 +22,31 @@ Nombre = Nombre + 10
 🙃 🔢 SansDeclaration in 0, 20, 1 {
 	✏️ SansDeclaration
 }
+
+# if avec une variable num, ici, va afficher "Texte si c'est vrai"
+✅ Nombre < 20 {
+	✏️ TexteVrai
+}
+
+# if avec else, ici va afficher "Texte si c'est faux" car ça va dans le else
+✅ Nombre > 20 {
+	✏️ TexteVrai
+} ❌ {
+	✏️ TexteFaux
+}
+
+# if avec un boolean
+✅ Boolean
+{
+✏️ TexteVrai
+}
+
+# on met le boolean à false
+Boolean = False
+
+# if else avec le boolean à false
+✅ Boolean {
+	✏️ TexteVrai
+} ❌ {
+	✏️ TexteFaux
+}
