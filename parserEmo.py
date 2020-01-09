@@ -26,7 +26,8 @@ def p_programme_recursive_line(p):
 
 def p_statement(p):
     ''' statement : assignation
-        | structure '''
+        | structure
+        | declaration'''
     p[0] = p[1]
 
 def p_statement_print(p):
@@ -45,21 +46,22 @@ def p_cond_if_else(p):
     ''' structure : IF expression '{' programme '}' ELSE '{' programme '}' '''
     p[0] = AST.CondIfElseNode([p[2],p[4],p[8]])
 
-# identifiant et nombre sont peut-etre provisoires
 def p_for(p):
-    ''' structure : FOR identifiant IN nombre ',' nombre ',' nombre '{' programme '}' '''
+    ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
-    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node
-    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])
+    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])
 
-# PEUT-ETRE PROVISOIRE
-def p_nombre(p):
-    ''' nombre : NUMBER '''
-    p[0] = AST.TokenNode(p[1])
+def p_for_decl(p):
+    ''' structure : FOR NUM identifiant IN expression ',' expression ',' expression '{' programme '}' '''
+    declare = AST.DeclareNode(p[2], [AST.TokenNode(p[3]), p[5]])
+    cond = AST.OpNode('<',[AST.TokenNode(p[3]),p[7]])
+    increment = AST.AssignNode([AST.TokenNode(p[3]),AST.OpNode('+', [AST.TokenNode(p[3]) , p[9]])])
+    programme = p[11]
+    p[0] = AST.ForNode([declare,cond,increment,programme])
 
-# PEUT-ETRE PROVISOIRE
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
@@ -74,10 +76,15 @@ def p_expression_op(p):
             | expression CMP_OP expression'''
     p[0] = AST.OpNode(p[2], [p[1], p[3]])
 
-def p_expression_num_or_var(p):
+def p_expression_num_or_var_or_bool(p):
     '''expression : NUMBER
-        | IDENTIFIER '''
+        | IDENTIFIER
+        | BOOLEAN '''
     p[0] = AST.TokenNode(p[1])
+
+def p_expression_string(p):
+    '''expression : STRING '''
+    p[0] = AST.TokenNode(p[1], True)
 
 def p_expression_paren(p):
     '''expression : '(' expression ')' '''
@@ -88,8 +95,14 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
 
 def p_assign(p):
-    ''' assignation : IDENTIFIER '=' expression '''
+    ''' assignation : identifiant '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
+
+def p_declaration(p):
+    ''' declaration : NUM identifiant '=' expression
+        | STR identifiant '=' expression
+        | BOOL identifiant '=' expression '''
+    p[0] = AST.DeclareNode(p[1], [AST.TokenNode(p[2]), p[4]])
 
 # EMOJIS
 
@@ -104,7 +117,7 @@ def p_error(p):
         print ("Syntax error in line %d" % p.lineno)
         yacc.errok()
     else:
-        print ("Sytax error: unexpected end of file!")
+        print ("Syntax error: unexpected end of file!")
 
 
 precedence = (

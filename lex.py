@@ -7,6 +7,11 @@ import ply.lex as lex
 reserved_words = (
 	'while',
 	'print',
+	'num',
+	'str',
+	'bool',
+	'True',
+	'False',
 	'for',
 	'in',
 	'if',
@@ -15,6 +20,8 @@ reserved_words = (
 
 tokens = (
 	'NUMBER',
+	'STRING',
+	'BOOLEAN',
 	'ADD_OP',
 	'MUL_OP',
 	'CMP_OP',
@@ -47,6 +54,35 @@ def t_NUMBER(t):
 	except ValueError:
 		print ("Line %d: Problem while parsing %s!" % (t.lineno,t.value))
 		t.value = 0
+	return t
+
+def t_STRING(t):
+	r'\"[^\"]+\"'
+	t.value = str(t.value)
+	t.value = t.value[1:-1]
+	return t
+
+def t_BOOLEAN(t):
+	r'\bTrue\b|\bFalse\b'
+	if(t.value == "False"):
+		t.value = False
+	else:
+		t.value = True
+	return t
+
+def t_NUM(t):
+	r'\bnum\b'
+	t.value = str(t.value)
+	return t
+
+def t_STR(t):
+	r'\bstr\b'
+	t.value = str(t.value)
+	return t
+
+def t_BOOL(t):
+	r'\bbool\b'
+	t.value = str(t.value)
 	return t
 
 def t_IDENTIFIER(t):
@@ -88,6 +124,8 @@ def t_COMMENT(t):
 def find_column(input, token):
     line_start = input.rfind('\n', 0, token.lexpos) + 1
     return (token.lexpos - line_start) + 1
+
+
 
 
 lex.lex()

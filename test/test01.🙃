@@ -1,10 +1,12 @@
-a = 40
+num a = 5
+bool d = False
 
-while(a-100){
-a = a+10
+if d {
 print a
 }
 
-
-print a#ofkfodk
-
+if a>50 {
+print d
+} else {
+print a
+}

@@ -10,7 +10,7 @@ est une utilisation un peu "limite" de graphviz. �a marche, mais le layout n'e
 pas toujours optimal...
 '''
 
-import pydotplus as pydot
+import pydot
 
 class Node:
     count = 0
@@ -96,9 +96,10 @@ class ProgramNode(Node):
 
 class TokenNode(Node):
     type = 'token'
-    def __init__(self, tok):
+    def __init__(self, tok, is_string=False):
         Node.__init__(self)
         self.tok = tok
+        self.is_string = is_string
 
     def __repr__(self):
         return repr(self.tok)
@@ -117,6 +118,12 @@ class OpNode(Node):
 
 class AssignNode(Node):
     type = '='
+
+class DeclareNode(Node):
+    type = 'declaration'
+    def __init__(self,var_type, children):
+        Node.__init__(self, children)
+        self.var_type = var_type
 
 class PrintNode(Node):
     type = 'print'
