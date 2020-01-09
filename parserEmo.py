@@ -46,14 +46,21 @@ def p_cond_if_else(p):
     ''' structure : IF expression '{' programme '}' ELSE '{' programme '}' '''
     p[0] = AST.CondIfElseNode([p[2],p[4],p[8]])
 
-# identifiant et nombre sont peut-etre provisoires
 def p_for(p):
     ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}' '''
     assign = AST.AssignNode([AST.TokenNode(p[2]),p[4]])
-    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])#ici AST token node 
-    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])# ici ast token node
+    cond = AST.OpNode('<',[AST.TokenNode(p[2]),p[6]])
+    increment = AST.AssignNode([AST.TokenNode(p[2]),AST.OpNode('+', [AST.TokenNode(p[2]) , p[8]])])
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])
+
+def p_for_decl(p):
+    ''' structure : FOR NUM identifiant IN expression ',' expression ',' expression '{' programme '}' '''
+    declare = AST.DeclareNode(p[2], [AST.TokenNode(p[3]), p[5]])
+    cond = AST.OpNode('<',[AST.TokenNode(p[3]),p[7]])
+    increment = AST.AssignNode([AST.TokenNode(p[3]),AST.OpNode('+', [AST.TokenNode(p[3]) , p[9]])])
+    programme = p[11]
+    p[0] = AST.ForNode([declare,cond,increment,programme])
 
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
@@ -88,13 +95,13 @@ def p_minus(p):
     p[0] = AST.OpNode(p[1], [p[2]])
 
 def p_assign(p):
-    ''' assignation : IDENTIFIER '=' expression '''
+    ''' assignation : identifiant '=' expression '''
     p[0] = AST.AssignNode([AST.TokenNode(p[1]),p[3]])
 
 def p_declaration(p):
-    ''' declaration : NUM IDENTIFIER '=' expression
-        | STR IDENTIFIER '=' expression
-        | BOOL IDENTIFIER '=' expression '''
+    ''' declaration : NUM identifiant '=' expression
+        | STR identifiant '=' expression
+        | BOOL identifiant '=' expression '''
     p[0] = AST.DeclareNode(p[1], [AST.TokenNode(p[2]), p[4]])
 
 def p_error(p):
