@@ -29,7 +29,10 @@ tokens = (
 	'NEWLINE',
 	# EMOJIS
 	'EMO_PENCIL',
-	'EMO_CREEPYSMILE',
+	'EMO_CREEPY_SMILE',
+	'EMO_CREEPY_SMILE_REVERSED',
+	'EMO_CHECK',
+	'EMO_CROSS',
 	# END OF EMOJIS
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
@@ -107,8 +110,20 @@ def t_EMO_PENCIL(t):
 	r'\U0000270F'
 	return t
 
-def t_EMO_CREEPYSMILE(t):
+def t_EMO_CREEPY_SMILE(t):
 	r'\U0001F642'
+	return t
+
+def t_EMO_CREEPY_SMILE_REVERSED(t):
+	r'\U0001F643'
+	return t
+
+def t_EMO_CHECK(t):
+	r'\U00002705'
+	return t
+
+def t_EMO_CROSS(t):
+	r'\U0000274C'
 	return t
 
 # END OF EMOJIS

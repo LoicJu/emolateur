@@ -106,6 +106,14 @@ def p_declaration(p):
 
 # EMOJIS
 
+def p_emo_creepy_smile(p):
+    ''' structure : EMO_CHECK expression '{' programme '}' '''
+    p[0] = AST.CondIfNode([p[2],p[4]])
+
+def p_emo_creepy_smile_reversed(p):
+    ''' structure : EMO_CHECK expression '{' programme '}' EMO_CROSS '{' programme '}' '''
+    p[0] = AST.CondIfElseNode([p[2],p[4],p[8]])
+
 def p_emo_pencil(p):
     ''' statement : EMO_PENCIL expression '''
     p[0] = AST.PrintNode(p[2])
