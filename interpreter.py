@@ -33,18 +33,6 @@ def valueOfToken(node):
         except KeyError:
             print ("*** Error: variable %s undefined!" % node.tok)
     return node.tok
-'''def valueOfToken(t):
-    if isinstance(t, AST.TokenNode):
-        test= str(t)
-        #test = test[1:-2]
-        return vars[test][1]
-    if isinstance(t, str):
-        try:
-            return vars[node.tok][1]
-        except KeyError:
-            print ("*** Error: variable %s undefined!" % node.tok)
-    return t    '''   
-
 
 def execute(node):
     while node:
@@ -87,6 +75,7 @@ def execute(node):
             val = stack.pop()
             print(valueOfToken(val))
         elif node.__class__ == AST.WhileNode:
+            # take the condition, if it's true, continue, if not, exit the for loop
             cond = stack.pop()
             if cond:
                 node = node.next[0]
@@ -94,6 +83,7 @@ def execute(node):
                 node = node.next[1]
             continue
         elif node.__class__ == AST.ForNode:
+            # take the condition, if it's true, continue, if not, exit the for loop
             cond = stack.pop()
             if cond:
                 node = node.next[0]
