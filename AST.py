@@ -135,13 +135,16 @@ class WhileNode(Node):
 class NewLineNode(Node):
     type = 'line'
 
+# define the classe ForNode
 class ForNode(Node):
     type = 'for'
 
+# define the classe CondIfNode, need to set a variable to know if it's evaluated
 class CondIfNode(Node):
     type = 'cond_if'
     evaluated = False
 
+# define the classe CondIfElseNode, need to set a variable to know if it's evaluated
 class CondIfElseNode(Node):
     type = 'cond_if_else'
     evaluated = False

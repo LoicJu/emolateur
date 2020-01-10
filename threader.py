@@ -17,16 +17,17 @@ def thread(self, lastNode):
     exitBody.addNext(beforeCond.next[-1])
     return self
 
+# Define the AST ForNode
 @addToClass(AST.ForNode)
 def thread(self, lastNode):
-    beforeCond = self.children[0]
-    assign = self.children[0].thread(lastNode)
-    exitCond = self.children[1].thread(self.children[0])
-    exitCond.addNext(self)
-    exitBody = self.children[3].thread(self)
+    beforeCond = self.children[0] # the before cond will be the first children, so the delaration or the assignation.
+    assignOrDeclare = self.children[0].thread(lastNode) # define the begining of the for node, that will be the assign (or declare)
+    exitCond = self.children[1].thread(self.children[0]) # define the exit condition, that will follow the assign or declare, it's the condition of the for
+    exitCond.addNext(self) # add the next of the programme after the condition
+    programme = self.children[3].thread(self) # define the programme in the for loop
     # increment après
-    increment = self.children[2].thread(self.children[3])
-    increment.addNext(beforeCond.next[-1])
+    increment = self.children[2].thread(self.children[3]) # define the increment
+    increment.addNext(beforeCond.next[-1]) #after the increment, go back to the condition
     return self
 
 @addToClass(AST.CondIfNode)

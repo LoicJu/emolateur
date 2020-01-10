@@ -4,6 +4,7 @@ Lex
 
 import ply.lex as lex
 
+# The reserved words will be the words we'll use. There's also the words "True" and "False" so that we can't use them as variables
 reserved_words = (
 	'while',
 	'print',
@@ -43,18 +44,24 @@ tokens = (
 
 literals = '()={},'
 
+# the different opperator:
+#  addition and substraction
 def t_ADD_OP(t):
 	r'[+-]'
 	return t
 
+# multiplication and division
 def t_MUL_OP(t):
 	r'[*/]'
 	return t
 
+# comparator
 def t_CMP_OP(t):
 	r'={2}|!=|<=|>=|[<>]'
 	return t
 
+# the types:
+# type number (num)
 def t_NUMBER(t):
 	r'\d+(\.\d+)?'
 	try:
@@ -64,12 +71,14 @@ def t_NUMBER(t):
 		t.value = 0
 	return t
 
+# type string (str)
 def t_STRING(t):
 	r'\"[^\"]+\"'
 	t.value = str(t.value)
 	t.value = t.value[1:-1]
 	return t
 
+# type boolean (bool)
 def t_BOOLEAN(t):
 	r'\bTrue\b|\bFalse\b'
 	if(t.value == "False"):
@@ -164,8 +173,6 @@ def t_COMMENT(t):
 def find_column(input, token):
     line_start = input.rfind('\n', 0, token.lexpos) + 1
     return (token.lexpos - line_start) + 1
-
-
 
 
 lex.lex()

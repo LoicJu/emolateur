@@ -15,7 +15,6 @@ def p_programme_statement(p):
         | statement line '''
     p[0] = AST.ProgramNode(p[1])
 
-# enlever ca ?
 def p_programme_recursive(p):
     ''' programme : statement line programme '''
     p[0] = AST.ProgramNode([p[1]]+p[3].children)
@@ -50,6 +49,8 @@ def p_cond_if_else(p):
         | EMO_CHECK expression '{' programme '}' EMO_CROSS '{' programme '}' '''
     p[0] = AST.CondIfElseNode([p[2],p[4],p[8]])
 
+# the for structure, we need to send in the assign, cond or increment an AST.TokenNode because we take always the same (p[2])
+# so it needs to be AST.TokenNode to be handle separately
 def p_for(p):
     ''' structure : FOR identifiant IN expression ',' expression ',' expression '{' programme '}'
         | EMO_CREEPY_SMILE identifiant IN expression ',' expression ',' expression '{' programme '}' '''
@@ -59,6 +60,8 @@ def p_for(p):
     programme = p[10]
     p[0] = AST.ForNode([assign,cond,increment,programme])
 
+# for the for_decl structure, we need to send in the declare, cond or increment an AST.TokenNode because we take always the same (p[3])
+# so it needs to be AST.TokenNode to be handle separately
 def p_for_decl(p):
     ''' structure : FOR NUM identifiant IN expression ',' expression ',' expression '{' programme '}'
         | EMO_CREEPY_SMILE_REVERSED EMO_NUM identifiant IN expression ',' expression ',' expression '{' programme '}' '''
@@ -68,10 +71,12 @@ def p_for_decl(p):
     programme = p[11]
     p[0] = AST.ForNode([declare,cond,increment,programme])
 
+# identifier (variable)
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''
     p[0] = AST.TokenNode(p[1])
 
+# declare the new line
 def p_newline(p):
     ''' line : NEWLINE '''
     p[0] = AST.NewLineNode(p[1])
