@@ -158,7 +158,7 @@ def t_error(t):
 	t.lexer.skip(1)
 
 def t_COMMENT(t):
-     r'\#.*'
+     r'(\#|\U0001F4AC).*'
      pass
 
 def find_column(input, token):
