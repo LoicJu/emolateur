@@ -1,4 +1,3 @@
-
 # trois types de variables : num, str, bool
 num Nombre = 40
 str Texte = "ceci est du texte"
