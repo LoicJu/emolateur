@@ -38,7 +38,7 @@ Nombre = Nombre + 10
 💬 if avec un boolean
 ✅ Boolean
 {
-✏️ TexteVrai
+	✏️ TexteVrai
 }
 
 💬 on met le boolean à false
@@ -49,4 +49,14 @@ Boolean = False
 	✏️ TexteVrai
 } ❌ {
 	✏️ TexteFaux
+}
+
+💬 boucle for avec raccourci (start = 0 ; step = 1)
+🥺 🔢 SansDeclaration 10 {
+	✏️ SansDeclaration
+}
+
+💬 boucle for avec raccourci (start = 0 ; step = 10)
+😈 🔢 SansDeclaration 11 {
+	✏️ SansDeclaration
 }

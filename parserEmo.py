@@ -71,6 +71,24 @@ def p_for_decl(p):
     programme = p[11]
     p[0] = AST.ForNode([declare,cond,increment,programme])
 
+# for with shortcut (start = 0 ; step = 1)
+def p_for_pleading(p):
+    ''' structure : EMO_PLEADING EMO_NUM identifiant expression '{' programme '}' '''
+    declare = AST.DeclareNode(p[2], [AST.TokenNode(p[3]), AST.TokenNode(0)])
+    cond = AST.OpNode('<',[AST.TokenNode(p[3]),p[4]])
+    increment = AST.AssignNode([AST.TokenNode(p[3]),AST.OpNode('+', [AST.TokenNode(p[3]) , AST.TokenNode(1)])])
+    programme = p[6]
+    p[0] = AST.ForNode([declare,cond,increment,programme])
+
+# for with shortcut (start = 0 ; step = 10)
+def p_for_devil(p):
+    ''' structure : EMO_DEVIL EMO_NUM identifiant expression '{' programme '}' '''
+    declare = AST.DeclareNode(p[2], [AST.TokenNode(p[3]), AST.TokenNode(0)])
+    cond = AST.OpNode('<',[AST.TokenNode(p[3]),p[4]])
+    increment = AST.AssignNode([AST.TokenNode(p[3]),AST.OpNode('+', [AST.TokenNode(p[3]) , AST.TokenNode(10)])])
+    programme = p[6]
+    p[0] = AST.ForNode([declare,cond,increment,programme])
+
 # identifier (variable)
 def p_identifiant(p):
     ''' identifiant : IDENTIFIER '''

@@ -29,16 +29,17 @@ tokens = (
 	'IDENTIFIER',
 	'NEWLINE',
 	# EMOJIS
-	'EMO_NUM',
-	'EMO_STR',
-	'EMO_BOOL',
-	'EMO_PENCIL',
-	'EMO_CREEPY_SMILE',
-	'EMO_CREEPY_SMILE_REVERSED',
-	'EMO_PLEADING',
-	'EMO_EYES',
-	'EMO_CHECK',
-	'EMO_CROSS',
+	'EMO_NUM', # Num variable assignation
+	'EMO_STR', # Str variable assignation
+	'EMO_BOOL', # Bool variable assignation
+	'EMO_PENCIL', # Comment
+	'EMO_CREEPY_SMILE', # For loop with with assignation above
+	'EMO_CREEPY_SMILE_REVERSED', # For loop with inline assignation
+	'EMO_PLEADING', # shortcut for loop (positive increment)
+	'EMO_DEVIL', # shortcut for loop (negative increment)
+	'EMO_EYES', # While loop
+	'EMO_CHECK', # If condition
+	'EMO_CROSS', # Else condition
 	# END OF EMOJIS
 ) + tuple(map(lambda s:s.upper(),reserved_words))
 
@@ -146,6 +147,10 @@ def t_EMO_CREEPY_SMILE_REVERSED(t):
 
 def t_EMO_PLEADING(t):
 	r'\U0001F97A'
+	return t
+
+def t_EMO_DEVIL(t):
+	r'\U0001F608'
 	return t
 
 def t_EMO_EYES(t):
