@@ -1,0 +1,52 @@
+
+💬 trois types de variables : num, str, bool
+🔢 Nombre = 40
+📖 Texte = "ceci est du texte"
+⁉️ Boolean = True
+
+📖 TexteVrai = "Texte si c'est vrai"
+📖 TexteFaux = "Texte si c'est faux"
+
+💬 boucle while
+👀 Nombre < 100 {
+Nombre = Nombre + 10
+✏️ Nombre
+}
+
+💬 boucle for avec la variable déclarée auparavant
+🙂 Nombre in 0, 10, 2 {
+	✏️ Nombre
+}
+
+💬 boucle for avec la variable déclarée dans la boucle
+🙃 🔢 SansDeclaration in 0, 20, 1 {
+	✏️ SansDeclaration
+}
+
+💬 if avec une variable num, ici, va afficher "Texte si c'est vrai"
+✅ Nombre < 20 {
+	✏️ TexteVrai
+}
+
+💬 if avec else, ici va afficher "Texte si c'est faux" car ça va dans le else
+✅ Nombre > 20 {
+	✏️ TexteVrai
+} ❌ {
+	✏️ TexteFaux
+}
+
+💬 if avec un boolean
+✅ Boolean
+{
+✏️ TexteVrai
+}
+
+💬 on met le boolean à false
+Boolean = False
+
+💬 if else avec le boolean à false
+✅ Boolean {
+	✏️ TexteVrai
+} ❌ {
+	✏️ TexteFaux
+}

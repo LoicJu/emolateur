@@ -1,16 +1,16 @@
 # coding: latin-1
 
-''' Petit module utilitaire pour la construction, la manipulation et la 
+''' Petit module utilitaire pour la construction, la manipulation et la
 repr�sentation d'arbres syntaxiques abstraits.
 
-S�rement plein de bugs et autres surprises. � prendre comme un 
+S�rement plein de bugs et autres surprises. � prendre comme un
 "work in progress"...
 Notamment, l'utilisation de pydot pour repr�senter un arbre syntaxique cousu
 est une utilisation un peu "limite" de graphviz. �a marche, mais le layout n'est
 pas toujours optimal...
 '''
 
-import pydotplus as pydot
+import pydot
 
 class Node:
     count = 0
@@ -38,13 +38,13 @@ class Node:
                 continue
             result += c.asciitree(prefix)
         return result
-    
+
     def __str__(self):
         return self.asciitree()
-    
+
     def __repr__(self):
         return self.type
-    
+
     def makegraphicaltree(self, dot=None, edgeLabels=True):
             if not dot: dot = pydot.Dot()
             dot.add_node(pydot.Node(self.ID,label=repr(self), shape=self.shape))
@@ -58,7 +58,7 @@ class Node:
                 #Workaround for a bug in pydot 1.0.2 on Windows:
                 #dot.set_graphviz_executables({'dot': r'C:\Program Files\Graphviz2.16\bin\dot.exe'})
             return dot
-        
+
     def threadTree(self, graph, seen = None, col=0):
             colors = ('red', 'green', 'blue', 'yellow', 'magenta', 'cyan')
             if not seen: seen = []
@@ -73,7 +73,7 @@ class Node:
             for i,c in enumerate(self.next):
                 if not c: return
                 col = (col + 1) % len(colors)
-                color = colors[col]                
+                color = 'red' #colors[col]
                 c.threadTree(graph, seen, col)
                 edge = pydot.Edge(self.ID,c.ID)
                 edge.set_color(color)
@@ -84,25 +84,26 @@ class Node:
                 # tarabiscot� des coutures...
                 # En commantant cette ligne, le layout sera bien meilleur, mais l'arbre nettement
                 # moins reconnaissable.
-                edge.set_constraint('false') 
+                edge.set_constraint('false')
                 if label:
                     edge.set_taillabel(str(i))
                     edge.set_labelfontcolor(color)
                 graph.add_edge(edge)
-            return graph    
-        
+            return graph
+
 class ProgramNode(Node):
     type = 'Program'
-        
+
 class TokenNode(Node):
     type = 'token'
-    def __init__(self, tok):
+    def __init__(self, tok, is_string=False):
         Node.__init__(self)
         self.tok = tok
-        
+        self.is_string = is_string
+
     def __repr__(self):
         return repr(self.tok)
-    
+
 class OpNode(Node):
     def __init__(self, op, children):
         Node.__init__(self,children)
@@ -111,32 +112,56 @@ class OpNode(Node):
             self.nbargs = len(children)
         except AttributeError:
             self.nbargs = 1
-        
+
     def __repr__(self):
         return "%s (%s)" % (self.op, self.nbargs)
-    
+
 class AssignNode(Node):
     type = '='
-    
+
+class DeclareNode(Node):
+    type = 'declaration'
+    def __init__(self,var_type, children):
+        Node.__init__(self, children)
+        self.var_type = var_type
+
 class PrintNode(Node):
     type = 'print'
-    
+
 class WhileNode(Node):
     type = 'while'
-    
+
+# define the classe NewLineNode
+class NewLineNode(Node):
+    type = 'line'
+
+# define the classe ForNode
+class ForNode(Node):
+    type = 'for'
+
+# define the classe CondIfNode, need to set a variable to know if it's evaluated
+class CondIfNode(Node):
+    type = 'cond_if'
+    evaluated = False
+
+# define the classe CondIfElseNode, need to set a variable to know if it's evaluated
+class CondIfElseNode(Node):
+    type = 'cond_if_else'
+    evaluated = False
+
 class EntryNode(Node):
     type = 'ENTRY'
     def __init__(self):
         Node.__init__(self, None)
-    
+
 def addToClass(cls):
     ''' D�corateur permettant d'ajouter la fonction d�cor�e en tant que m�thode
     � une classe.
-    
+
     Permet d'impl�menter une forme �l�mentaire de programmation orient�e
     aspects en regroupant les m�thodes de diff�rentes classes impl�mentant
     une m�me fonctionnalit� en un seul endroit.
-    
+
     Attention, apr�s utilisation de ce d�corateur, la fonction d�cor�e reste dans
     le namespace courant. Si cela d�range, on peut utiliser del pour la d�truire.
     Je ne sais pas s'il existe un moyen d'�viter ce ph�nom�ne.

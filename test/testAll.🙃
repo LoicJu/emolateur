@@ -1,0 +1,53 @@
+
+# trois types de variables : num, str, bool
+num Nombre = 40
+str Texte = "ceci est du texte"
+bool Boolean = True
+
+str TexteVrai = "Texte si c'est vrai"
+str TexteFaux = "Texte si c'est faux"
+
+
+# boucle while
+while(Nombre<100){
+	Nombre = Nombre+10
+	print Nombre
+}
+
+# boucle for avec la variable déclarée auparavant
+for Nombre in 0, 10, 2{
+	print Nombre
+}
+
+# boucle for avec la variable déclarée dans la boucle
+for num SansDeclaration in 0, 20,1{
+	print SansDeclaration
+}
+
+# if avec une variable num, ici, va afficher "Texte si c'est vrai"
+if Nombre < 20{
+	print TexteVrai
+}
+
+# if avec else, ici va afficher "Texte si c'est faux" car ça va dans le else
+if Nombre > 20{
+	print TexteVrai
+}else{
+	print TexteFaux
+}
+
+# if avec un boolean
+if Boolean
+{
+print TexteVrai
+}
+
+# on met le boolean à false
+Boolean = False
+
+# if else avec le boolean à false
+if Boolean{
+	print TexteVrai
+}else{
+	print TexteFaux
+}

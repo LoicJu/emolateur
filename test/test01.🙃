@@ -1,3 +1,12 @@
-a = 42;
-print a#ofkfodk
-#ofmajfosj
+num a = 5
+bool d = False
+
+if d {
+print a
+}
+
+if a>50 {
+print d
+} else {
+print a
+}
