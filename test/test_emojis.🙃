@@ -36,8 +36,7 @@ Nombre = Nombre + 10
 }
 
 💬 if avec un boolean
-✅ Boolean
-{
+✅ Boolean {
 	✏️ TexteVrai
 }
 
